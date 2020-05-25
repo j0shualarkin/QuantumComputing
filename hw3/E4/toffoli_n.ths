@@ -1,0 +1,29 @@
+data Bool = True | False
+
+
+iso if :: then:(a <-> a) -> else:(a <-> a) -> (Bool * a <-> Bool * a)
+| True, x <-> True, then x
+| False, x <-> False, else x
+
+iso x :: Bool <-> Bool
+| True <-> False
+| False <-> True
+
+iso cx :: Bool * Bool <-> Bool * Bool
+| x <-> if ~then:x ~else:id x
+
+iso ccx :: Bool * (Bool * Bool) <-> Bool * (Bool * Bool)
+| x <-> if ~then:cx ~else:id x
+
+iso cccx :: Bool * (Bool * (Bool * Bool)) <-> Bool * (Bool * (Bool * Bool))
+| x <-> if ~then:ccx ~else:id x
+
+iso ccccx :: Bool * (Bool * (Bool * (Bool * Bool))) <-> Bool * (Bool * (Bool * (Bool * Bool)))
+| x <-> if ~then:cccx ~else:id x
+
+
+
+
+
+
+

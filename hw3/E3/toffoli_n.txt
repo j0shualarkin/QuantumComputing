@@ -1,0 +1,6 @@
+toffoli in Pi
+
+toffoli(n) = distrib; gen_ctrl(n); factor
+
+gen_ctrl(1) = (id x not) + id
+gen_ctrl(n+1) = (gen_ctrl(n) + id) + id

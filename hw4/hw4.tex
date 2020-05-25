@@ -1,0 +1,912 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{indentfirst}
+\usepackage{layout}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\qb{\lvert}{\rangle}
+
+\def\tit{Quantum Programming HW4}
+\def\term{February 2020}
+
+\graphicspath{{.}}
+
+\def\auths{Joshua Larkin}
+
+\doublespacing
+
+\lhead{\term}
+\chead{\tit}
+\rhead{\thepage}
+\cfoot{}
+
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\tit}}\\
+    \normalsize\vspace{0.1in}\small{B490 : Spring 2020 }\\
+    \vspace{0.1in}\large{\textit{\auths}}
+    \vspace{3in}
+}
+
+\date{}
+
+\newcommand{\icol}[1]{
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)
+}
+
+\newcommand{\re}[1]{$\text{Re }$#1}
+\newcommand{\im}[1]{$\texttt{Im }#1$}
+
+\newcommand{\n}{\newline}
+\renewcommand\headrulewidth{0.4pt}
+\fancyheadoffset{0.5 cm}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\topmargin -.3in
+\headsep 20pt
+%\footskip 20pt
+\textheight 8.5in
+\textwidth 6.25in
+
+\setlength\topmargin{0pt}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\setlength\oddsidemargin{0pt}
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-2in}
+\setlength\textheight{\paperheight}
+\addtolength\textheight{-2in}
+
+\begin{document}
+
+%%%% TITLE PAGE
+\maketitle
+\pagebreak
+
+%%%%% First content Page
+% \section{Work}
+% Do exercises 1.1.2 thru 1.3.12 and exercises 2.1.1 thru 2.2.7
+% Programming drills are optional
+
+%%%%%%%%%%
+
+\section{1.1.2}
+Find the value of $i^{15}$. (Hint: Calculate $i$, $i^2$, $i^3$, $i^4$, and $i^5$. Find a pattern.) 
+
+Here we go! 
+\begin{align*}
+	i &= \sqrt{-1} \\
+	i^2 &= -1  \\
+	i^3 &= -1 \times i = -i \\
+	i^4 &= (-1 \times i) \times i = -(i^2) = -(-1) = 1 \\
+	i^5 &= 1 \times i = i \\
+	i^{15} &= (i^5)^3 = i^3 = -1 
+\end{align*}
+The pattern is: $i, -1, -i,\ 1$. Then it repeats. So for $i^n$ you can take $n \mod 4$ as the index in the pattern of the value.
+
+%%%%%%%%%%
+
+\section{1.1.3}
+Let $c_1 = -3 + i$ and $c_2 = 2 - 4i$. Calculate $c_1 + c_2$ and $c_1 \times c_2$. 
+\begin{align*} 
+	c_1 + c_2 &= (-3 + i) + (2 - 4i)  \\
+	          &= (-3 + 2) + (1 - 4)i  \\
+		  &= -1 - 3i
+\end{align*}
+Note: $(i \times -4i) = (i \times i) \times -4 = (-1 \times -4)$ 
+\begin{align*}
+	c_1 \times c_2 &= (-3 + i) \times (2 - 4i) \\
+		       &= (-3 \times 2) + (-3 \times -4i)  + (i \times 2) + (i \times -4i)  \\
+		       &= (-6) + 12i + 2i + 4  \\
+		       &= -2 + 14i
+\end{align*}
+
+%%%%%%%%%%
+
+\section{1.1.4}
+Verify that the complex number $-1 + i$ is a solution for the polynomial equation $x^2 + 2x + 2 = 0$.
+\begin{align*}
+	x^2 + 2x + 2 &= (-1 + i)^2 + 2(-1 + i) + 2 \\
+		     &= ((-1 + i)(-1 + i)) + (2 + 0i)(-1 + i) + (2 + 0i) \\
+		     &= ((-1\times -1 + -(1 \times 1)) + (-1 \times 1 + 1 \times -1)i) + (2 + 0i)(-1 + i) + (2 + 0i) \\
+		     &= ((1 + -1) + (-1 + -1)i) + (2 + 0i)(-1 + i) + (2 + 0i) \\
+		     &= (0 - 2i) + (((2 \times -1) - (0 \times 1)) + ((2 \times 1) + (0 \times -1))i) + (2 + 0i) \\
+		     %% (r1r2 - i1i2) + (r1i2 + i1r2)i
+		     &= (0 - 2i) + (-2 + 2i) + (2 + 0i) \\
+		     &= (0 - 2i) + (0 + 2i) \\
+		     &= 0 + 0i \\
+	             &= 0
+\end{align*}
+
+%%%%%%%%%%
+
+\section{1.2.1} Let $c_1 = (-3,-1)$ and $c_2 = (1,-2)$. Calculate their product.
+\begin{align*}
+	c_1 \times c_2 &= (-3,-1)(1,-2) \\
+		       &= (-3*1 - -1*-2, -3*-2 + 1*-1) \\
+		       &= (-3 - 2, 6 - 1)\\
+		       &= (-5, 5) \\
+\end{align*}
+
+
+%%%%%%%%%%
+\newpage
+
+\section{1.2.2}
+Verify that multiplication of complex numbers is associative.
+
+\begin{proof}
+	Fix three complex numbers $x, y, z$. \\
+	We show $x \times (y \times z) = (x \times y) \times z$, where $\times$ is complex multiplication.
+\begin{align*}
+	x \times (y \times z) &= (x_r, x_i) \times ((y_r, y_i) \times (z_r, z_i)) \\
+			      &= (x_r, x_i) \times ((y_rz_r - y_iz_i), (y_rz_i + y_iz_r)) \\
+			      &= (((x_r)(y_rz_r - y_iz_i) - (x_i)(y_rz_i + y_iz_r)) , ((x_r)(y_rz_i + y_iz_r) + (x_i)(y_rz_r - y_iz_i))) \\
+			      &= (((x_r)(y_rz_r - y_iz_i) - (x_i)(y_rz_i + y_iz_r)) , ((x_r)(y_rz_i + y_iz_r) + (x_i)(y_rz_r - y_iz_i))) \\
+			      &= ((x_ry_rz_r - x_ry_iz_i) - (x_iy_rz_i + x_iy_iz_r) , (x_ry_rz_i + x_ry_iz_r) + (x_iy_rz_r - x_iy_iz_i)) \\
+			      &= ((x_ry_rz_r - x_ry_iz_i) - (x_iy_rz_i + x_iy_iz_r) , (x_ry_rz_i + x_ry_iz_r) + (x_iy_rz_r - x_iy_iz_i)) \\
+			      &= (x_ry_rz_r + -(x_ry_iz_i) + -(x_iy_rz_i) + -(x_iy_iz_r) , x_ry_rz_i + x_ry_iz_r + x_iy_rz_r + -(x_iy_iz_i)) \\
+			      &=  (x_ry_rz_r + -(x_iy_iz_r) + -(x_ry_iz_i) + -(x_iy_rz_i) , x_ry_rz_i + -(x_iy_iz_i) + x_ry_iz_r + x_iy_rz_r) \\
+			      &=  ( (x_ry_rz_r - x_iy_iz_r) - (x_ry_iz_i + x_iy_rz_i) , (x_ry_rz_i - x_iy_iz_i) + (x_ry_iz_r + x_iy_rz_r)  ) \\
+			      &=  ( (x_ry_r - x_iy_i)(z_r) - (x_ry_i + x_iy_r)(z_i) , (x_ry_r - x_iy_i)(z_i) + (x_ry_i + x_iy_r)(z_r)  ) \\
+			      &= (x_ry_r - x_iy_i , x_ry_i + x_iy_r) \times (z_r,z_i) \\
+			      &= ((x_r,x_i) \times (y_r,y_i)) \times (z_r,z_i) \\
+			      &= (x \times y) \times z
+\end{align*}
+
+\end{proof}
+
+%%%%%%%%%%
+\newpage 
+
+\section{1.2.3}
+Let $c_1 = 3i$ and $c_2 = -1 - i$. Calculate $\frac{c_1}{c_2}$.
+So $c_1 = (a_1, b_1) = (0, 3)$ and $c_2 = (a_2, b_2) = (-1, -1)$. \\
+\begin{align*}
+	a_2^2 + b_2^2 &= (-1)^2 + (-1)^2 = 2 \\
+	a_1a_2 + b_1b_2 &= 0 \times -1 + 3 \times -1 = 0 + -3 = -3 \\
+	a_2b_1 - a_1b_2 &= -1 \times 3 - 0 \times -1 = -3 - 0 = -3 \\
+\end{align*}
+Then $\frac{c_1}{c_2} = (\frac{-3}{2},\frac{-3}{2}) = (-1.5, -1.5)$
+
+%%%%%%%%%%
+
+\section{1.2.4}
+Calculate the modulus of $c = 4 - 3i$.
+$$|c| = |4 - 3i| = +\sqrt{4^2 + (-3)^2} = +\sqrt{16 + 9} = +\sqrt{25} = 5$$
+
+%%%%%%%%%%
+
+\newpage
+
+\section{1.2.5}
+Verify that given two arbitrary complex numbers $c_1$ and $c_2$, the following equality 
+always holds: 
+Prove that $|c_1||c_2| = |c_1 c_2|$.
+\begin{proof}
+	Fix complex numbers $c_1 = (a_1,b_1)$ and $c_2 = (a_2,b_2)$. We show $|c_1||c_2|=|c_1 c_2|$. 
+	\begin{align*}
+	|c_1||c_2| &= |a_1 + b_1i||a_2 + b_2i| \\
+		   &= (+\sqrt{a_1^2 + b_1^2})(+\sqrt{a_2^2 + b_2^2}) \\
+		   &= +\sqrt{(a_1^2 + b_1^2)(a_2^2 + b_2^2)}  \\
+		   &= +\sqrt{a_1^2(a_2^2 + b_2^2) + b_1^2(b_2^2 + a_2^2)}  \\
+		   &= +\sqrt{a_1^2a_2^2 + a_1^2b_2^2 + b_1^2b_2^2 + b_1^2a_2^2}  \\
+		   &= +\sqrt{(a_1a_2)^2 + (a_1b_2)^2 + (b_1b_2)^2 + (b_1a_2)^2}  \\
+		   &= +\sqrt{(a_1a_2 - b_1b_2)^2 + (a_1b_2 + b_1a_2)^2}  \\
+		   &= |(a_1a_2 - b_1b_2) + (a_1b_2 + b_1a_2)i|  \\
+		   &= |(a_1,b_1)(a_2,b_2)|  \\
+		   &= |c_1c_2|
+	\end{align*}
+\end{proof}
+
+
+%%%%%%%%%%
+\newpage
+
+\section{1.2.6}
+Prove that $|c_1 + c_2| \leq |c_1| + |c_2|$. When are they equal? (Hint: square both sides.)
+\begin{proof}
+	Fix complex numbers $c_1 = a+bi, c_2 = c+di$. We show $|c_1 + c_2| \leq |c_1| + |c_2|$.
+	Consider the square of both sides. 
+	$$|c_1 + c_2|^2 = |(a+c) + (b+d)i|^2 = (\sqrt{(a+c)^2 + (b+d)^2})^2 = (a+c)^2 + (b+d)^2$$
+	$$(|c_1| + |c_2|)^2 = |c_1|^2 + 2|c_1||c_2| + |c_2|^2 = (a^2 + b^2) + 2|c_1||c_2| + (c^2 + d^2)$$
+	So, we must show $(a+c)^2 + (b+d)^2 \leq (a^2 + b^2) + 2|c_1||c_2| + (c^2 + d^2)$.  \\
+	Recall that for any $z$, $|z| = |\overline{z}|$; and $|z_1||z_2| = |z_1z_2|$ for any $z_1, z_2$. \\
+	Using these: $(a+c)^2 + (b+d)^2 \leq (a^2 + b^2) + 2|c_1 \overline{c_2}| + (c^2 + d^2)$ \\
+	Then:  $a^2 + 2ac + c^2 + (b^2 + 2bd + d^2) \leq (a^2 + b^2) + 2|c_1 \overline{c_2}| + (c^2 + d^2)$. \\
+	Subtracting common elements gives:  $2ac + 2bd \leq 2|c_1 \overline{c_2}|$. \\
+	Dividing both sides by 2:  $ac + bd \leq |c_1||c_2|$. \\
+	Square both sides (again):  $(ac)^2 + 2abcd + (bd)^2 \leq |c_1|^2|c_2|^2$. \\
+	Unfolding:  $(ac)^2 + 2abcd + (bd)^2 \leq (a^2 + b^2)(c^2 + d^2)$. \\
+	Algebra:  $(ac)^2 + 2abcd + (bd)^2 \leq (ac)^2 + (ad)^2 + (bc)^2 + (bd)^2$. \\
+	Subtract common terms:  $2abcd \leq (ad)^2 + (bc)^2$. \\
+	Move the left-hand side over:  $0 \leq (ad)^2 - 2abcd + (bc)^2$. \\
+	More algebra:  $0 \leq (ad - bc)^2$ \\
+	And we know this is true because $0 \leq x^2$ for any $x$.
+\end{proof}
+
+
+%%%%%%%%%%
+
+\section{1.2.7}
+Show that for all $c \in \mathbb{C}$ we have $c + (0,0) = (0,0) + c = c$. 
+That is, $(0,0)$ is an additive identity.
+
+\begin{proof} Fix $c \in \mathbb{C}$. We show $c + (0,0) = (0,0) + c = c$. 
+\begin{align*}
+	c + (0,0) &= (a,b) + (0,0) \\
+	          &= (a + 0, b + 0) \\
+		  &= (a,b)
+\end{align*}
+\begin{align*}
+	(0,0) + c &= (0,0) + (a,b) \\ 
+		  &= (0 + a, 0 + b) \\
+		  &= (a,b)
+\end{align*}
+
+\end{proof}
+
+%%%%%%%%%%
+
+\section{1.2.8}
+Show that for all $c \in \mathbb{C}$ we have $c \times (1,0) = (1,0) \times c = c$. 
+That is, $(1,0)$ is a multiplicative identity.
+\begin{proof} Fix $c \in \mathbb{C}$. We show $c \times (1,0) = (1,0) \times c = c$. 
+\begin{align*}
+	c \times (1,0) &= (a,b)(1,0) \\
+	               &= (1\times a - b \times 0, a\times 0 + 1\times b) \\
+		       &= (a,b)
+\end{align*}
+\begin{align*}
+	(1,0) \times c &= (1,0)(a,b) \\ 
+		       &= (a\times 1 - 0 \times b, 1\times b + a\times 0) \\
+		       &= (a,b)
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%
+
+\section{1.2.9}
+Verify that multiplication by $(-1,0)$ changes the sign of the real and 
+imaginary components of a complex number.
+
+\begin{proof}
+Fix a complex number $c = (a,b)$. We show $(a,b)(-1,0) = (-a,-b)$.
+	\begin{align*}
+		(a,b)(-1,0) &= (a \times -1 - b \times 0 , a\times 0 + b \times -1 )  \\ 
+		            &= (-a - 0, 0 + -b) \\
+			    &= (-a,-b) 
+	\end{align*}
+\end{proof}
+
+%%%%%%%%%%
+
+\section{1.2.10}
+Show that conjugation respects addition, i.e.,
+$\overline{c_1} + \overline{c_2} = \overline{c_1 + c_2}$
+
+\begin{proof}
+	Fix complex numbers $c_1, c_2$. 
+	\begin{align*}
+		\overline{c_1} + \overline{c_2} &= \overline{a_1 + b_1i} + \overline{a_2 + b_2i}  \\ 
+						&= (a_1 - b_1i) + (a_2 - b_2i) \\
+						&= (a_1 + a_2) + (-b_1 + -b_2)i \\
+						&= (a_1 + a_2) - (b_1 + b_2)i \\
+						&= \overline{(a_1+a_2) + (b_1+b_2)i} \\
+						&= \overline{c_1 + c_2}
+	\end{align*}
+\end{proof}
+
+%%%%%%%%%%
+
+\section{1.2.11}
+Show that conjugation respects multiplication, i.e.,
+$\overline{c_1} \times \overline{c_2} = \overline{c_1 \times c_2}$
+
+\begin{proof}
+	Fix complex numbers $c_1, c_2$. 
+	\begin{align*}
+		\overline{c_1} \times \overline{c_2} 
+			&= \overline{a_1 + b_1i} \times \overline{a_2 + b_2i}  \\ 
+			&= (a_1 - b_1i) \times (a_2 - b_2i) \\
+			&= (a_1a_2 - (-b_1)(-b_2)) + (a_1(-b_2) + (-b_1)a_2)i \\
+			&= (a_1a_2 - b_1b_2) + (-a_1b_2 - b_1a_2)i \\
+			&= (a_1a_2 - b_1b_2) - (a_1b_2 + b_1a_2)i \\
+			&= \overline{(a_1a_2 - b1b2) + (a_1b_2 + b_1a_2)i} \\
+			&= \overline{(a_1 + b_1i) \times (a_2 + b_2i)} \\
+		        &= \overline{c_1 \times c_2}
+	\end{align*}
+\end{proof}
+
+
+%%%%%%%%%%
+
+\section{1.2.12}
+Consider the operation given by flipping the sign of the real part. Is this a field isomorphism of $\mathbb{C}$? If yes, prove it. Otherwise, show where it fails.
+
+\begin{proof}
+	Define $\phi\ :\ \mathbb{C} \rightarrow \mathbb{C}$
+	such that $\phi(a + bi) = -a + bi$. We show $\phi$ is not a field isomorphism. 
+	The trouble arises in the case of $\phi$ respecting multiplication.  \\
+	For $\phi(c_1 \times c_2)$ we have $\phi((a_1a_2 - b_1b_2) + (a_1b_2 + b_1a_2)i) = -(a_1a_2 - b_1b_2) + (a_1b_2 + b_1a_2)i$ \\
+	While $\phi(c_1) \times \phi(c_2) = (-a_1 + b_1i) \times (-a_2 + b_2i) = (a_1a_2 - b_1b_2) + (a_1b_2 + b_1a_2)i$
+	So the real part of $\phi(c_1 \times c_2)$ is negated, yet the real part of $\phi(c_1) \times \phi(c_2)$ is not.
+	Hence they are not equal and $\phi$ is not a field isomorphism of $\mathbb{C}$.
+%
+%	First we show it is bijective. Then we show $\phi(c_1 + c_2) = \phi(c_1) + \phi(c_2)$ and $\phi(c_1 \times c_2) = \phi(c_1) \times \phi(c_2)$.
+%	Let's fix two complex numbers $x, y$, where $x = a_1 + b_1i$ and $y = a_2 + b_2i$.
+%	We begin with showing $\phi$ injective. That is, $\phi(x) = \phi(y) \Rightarrow x = y$. Assume $\phi(x) = \phi(y)$. 
+%	Then $a_1 - b_1i = a_2 - b_2i$. So $a_1 = a_2$ and $- b_1$ = $- b_2$, and also $b_1 = b_2$ Therefore $a_1 + b_1i = a_2 + b_2i$.
+%	For surjectivity, let's pick a complex number $z = a_z + b_zi$. We give a $x = a_x + b_xi$ such that $\phi(x) = z$.
+%	That is, $\phi(x) = a_x - b_xi$. Take $a_x = a_z$ and $b_x = (-b_z)$. 
+%	Then $\phi(x) = \phi(a_z - b_zi) = a_z + b_zi = z$. 
+%	Now we know that our map $\phi$ is a bijection.
+%
+%	We show that the addition operator is respected under $\phi$. 
+%	We prove $\phi(c_1 + c_2) = \phi(c_1) + \phi(c_2)$
+%	Fix complex numbers $c_1, c_2$, where $c_1 = a_1 + b_1i$ and $c_2 = a_2 + b_2i$. 
+%	\begin{align*}
+%		\phi(c_1 + c_2) &= \phi((a_1 + b_1i) + (a_2 + b_2i)) \\
+%		                &= \phi((a_1 + a_2) + (b_1 + b_2)i) \\
+%		                &= -(a_1 + a_2) + (b_1 + b_2)i \\
+%				&= (-a_1 + -a_2) + (b_1 + b_2)i \\
+%				&= (-a_1 + b_1i) + (-a_2 + b_2i) \\
+%				&= \phi(a_1 + b_1i) + \phi(a_2 + b_2i) \\
+%				&= \phi(c_1) + \phi(c_2)
+%	\end{align*}
+%
+%	Finally we show that the multiplication operator is respected under $\phi$. 
+%	We prove $\phi(c_1 \times c_2) = \phi(c_1) \times \phi(c_2)$
+%	Fix complex numbers $c_1, c_2$, where $c_1 = a_1 + b_1i$ and $c_2 = a_2 + b_2i$. 
+%	\begin{align*}
+%		\phi(c_1 \times c_2) &= \phi((a_1 + b_1i) \times (a_2 + b_2i)) \\
+%				     &= \phi((a_1a_2 - b_1b_2) + (a_1b_2 + b_1a_2)i) \\
+%				     &= -(a_1a_2 - b_1b_2) + (a_1b_2 + b_1a_2)i \\
+%				     &= (-a_1a_2 + b_1b_2) + (a_1b_2 + b_1a_2)i \\
+%			             &= ? \\
+%				     &= (a_1a_2 - b_1b_2) + (-a_1b_2 + b_1-a_2)i   \\
+%				     &= (-a_1-a_2 - b_1b_2) + (-a_1b_2 + b_1-a_2)i   \\
+%			             &= -a_1 + b_1i \times -a_2 + b_2i \\
+%			             &= \phi(a_1 + b_1i) \times \phi(a_2 + b_2i) \\
+%			             &= \phi(c_1) \times \phi(c_2)
+%	\end{align*}
+%
+
+\end{proof}
+
+
+%%%%%%%%%%
+
+\section{1.3.1}
+Draw the complex numbers $c_1 = 2 - i$ and $c_2 = 1 + i$ in the complex plane, and add them using the parallelogram rule. 
+Verify that you would get the same result as adding them algebraically (the way we learned in Section 1.2).
+
+%%%%%%%%%%
+
+\section{1.3.2}
+Let $c_1 = 2 - i$ and $c_2 = 1 + i$. Subtract $c_2$ from $c_1$ by first drawing $-c_2$ and then adding it to $c_1$ using the parallelogram rule.
+
+
+%%%%%%%%%%
+
+\section{1.3.3}
+Draw the complex number given by the polar coordinates $\rho = 3$ and $\theta = \frac{\pi}{3}$. 
+Compute its Cartesian coordinates.
+%% Missing drawing
+\begin{align*}
+	c &= a + bi  \\
+	  &= (a,b)  \\
+	  &= (\rho \cos \theta , \rho \sin \theta)  \\
+	  &= (3\cos \frac{\pi}{3}, 3\sin \frac{pi}{3})  \\
+	  &= (\frac{3}{2} ,\frac{3\sqrt{3}}{2})  \\
+	  &= 1.5 + (\frac{3\sqrt{3}}{2})i
+\end{align*}
+
+
+%%%%%%%%%%
+
+\section{1.3.4}
+Multiply $c_1 = -2 - i$ and $c_2 = -1 - 2i$ using both the algebraic and the geometric method; verify that the results are identical.
+
+Algebraically: 
+\begin{align*}
+	c_1 \times c_2 &= (-2, -1) \times (-1 -2) \\
+		       &= ((-2\times -1 - -1 \times -2 , -2\times-2 + -1 \times -1) \\
+		       &= (2-2,4+1)\\
+		       &= (0,5) \\
+\end{align*}
+Now we can put $c_3 = 5i$ in polar coordinates $c_3 = (\sqrt{0^2 + (5)^2}, \tan^{-1}(\frac{0}{5})) = (5, 0)$
+We hope that this result equals the geomtric multiplication of $c_1$ and $c_2$. 
+First, we convert $c_1$ and $c_2$ to polar coordinates.
+\begin{align*}
+	c_1 &= (\sqrt{(-2)^2 + (-1)^2}, \tan^{-1}(\frac{-1}{-2}))   \\
+	    &= (\sqrt{4 + 1}, \tan^{-1}(\frac{1}{2})) \\
+	    &= (\sqrt{5}, \tan^{-1}(\frac{1}{2}))
+\end{align*}
+\begin{align*}
+	c_2 &= (\sqrt{(-1)^2 + (-2)^2}, \tan^{-1}(\frac{-2}{-1}))  \\
+	    &= (\sqrt{1 + 4}, \tan^{-1}(2))  \\
+	    &= (\sqrt{5}, \tan^{-1}(2))
+\end{align*}
+Now we multiply the polar coordinate representations.
+\begin{align*}
+	c_1 \times c_2 &= (\sqrt{5}, \tan^{-1}(\frac{1}{2})) \times (\sqrt{5}, \tan^{-1}(2)) \\
+	               &= (\sqrt{5}\sqrt{5}, \tan^{-1}(\frac{1}{2}) + \tan^{-1}(2)) \\
+		       &= (5, \frac{\pi}{2})
+\end{align*}
+%%%%%%%%%%
+
+\section{1.3.5}
+Describe the geometric effect on the plane obtained by multiplying by a real number, i.e., the function $c \mapsto  c \times r_0$ where $r_0$ is a fixed real number.
+
+Let $c = a + bi$. We consider $c \times r_0$ for a fixed real number $r_0$. Really, $r_0 = (r_0, 0)$ in the algebraic form of complex numbers. 
+So $(a,b)\times (r_0,0) = (ar_0 - b\times0 , a\times0 + b\times r_0) = (ar_0,br_0)$.
+Then $(ar_0,br_0) = (\sqrt{(ar_0)^2+(br_0)^2}, tan^{-1}(\frac{br_0}{ar_0})) = (\sqrt{(ar_0)^2+(br_0)^2}, tan^{-1}(\frac{b}{a}))$.
+So the geometric effect is scaling the magnitude by $r_0$ but maintaining the same phase. 
+
+%%%%%%%%%%
+
+\section{1.3.6}
+Describe the geometric effect on the plane obtained by multiplying by a generic complex number, i.e., the function $c \mapsto  c \times c_0$ where $c_0$ is a fixed complex number.
+
+Fix a complex number $c_0$ in polar form $c_0 = (\rho_0,\theta_0)$. 
+Now take a complex number $c$, in polar form as well, $c = (\rho,\theta)$. The result of multiplying $c\times c_0$ will be $(\rho\rho_0,\theta + \theta_0)$.
+That is, the modulus of $c$ will be scaled by the modulus of $c_0$ and the angle of $c$ will be added with the angle of $c_0$. 
+
+%%%%%%%%%%
+
+\section{1.3.7}
+Divide $2 + 2i$ by $1 - i$ using both the algebraic and the geometrical method and verify that the results are the same. 
+\begin{align*}
+	\frac{2+2i}{1-i} &= \frac{2+2i}{1-i} \times \frac{1+i}{1+i} \\ 
+			 &= \frac{(2+2i)(1+i)}{(1-i)(1+i)}\\
+			 &= \frac{(2 - 2) + (2+2)i}{(1+1) + i(1-1)}\\
+			 &= \frac{(2+2)i}{2}\\
+			 &= 2i
+%	\frac{2+2i}{1-i} &= \frac{2\times 1 + 2\times -1}{(1)^2 + (-1)^2} + \frac{1\times 1 - 2 * -1}{(1)^2 + (-1)^2}i \\
+%	                 &= \frac{2 + -2}{1 + 1} + \frac{1 - -2}{1 + 1}i \\
+%	                 &= \frac{0}{2} + \frac{3}{2}i \\
+	                 % &= 0 + \frac{3}{2}i
+\end{align*}
+
+Converting them to polar form: \\
+$2 + 2i = (\sqrt{(2)^2 + (2)^2}, \tan^{-1}(1)) = (2\sqrt{2}, \frac{\pi}{4})$ 
+and $1 - i = (\sqrt{(1)^2 + (-1)^2}, \tan^{-1}(-1)) = (\sqrt{2}, -\frac{\pi}{4})$
+\begin{align*}
+	\frac{(2\sqrt{2}, \frac{\pi}{4})}{(\sqrt{2}, -\frac{\pi}{4})} &= (\frac{2\sqrt{2}}{\sqrt{2}} , \frac{\pi}{4} - -\frac{\pi}{4})\\
+	          &= (2, \frac{\pi}{2}) \\
+\end{align*}
+
+Now let's convert $(2,\frac{\pi}{2})$ to Cartesian form: $(2\cos{\frac{\pi}{2}},2\sin{\frac{\pi}{2}}) = (0,2) = 0 + 2i$
+%%%%%%%%%%
+
+\section{1.3.8}
+Let $c = 1 - i$. Convert $c$ to polar coordinates, calculate $c^5$ and revert the answers to Cartesian coordinates. 
+
+In polar form: $c = (\sqrt{1^2 + (-1)^2},\tan^{-1}(-1)) = (\sqrt{2},-\frac{\pi}{4})$. 
+Now we calculate $c^5 = ((\sqrt{2})^5, -\frac{5\pi}{4})$.
+Converting back to Cartesian form: 
+\begin{align*}
+  c^5 &= ((\sqrt{2})^5, -\frac{5\pi}{4})  \\ 
+	&= ((\sqrt{2})^5(\cos(-\frac{5\pi}{4})), (\sqrt{2})^5(\sin (-\frac{5\pi}{4})))  \\
+	&= (4\sqrt{2}(-\frac{1}{\sqrt{2}}), (4\sqrt{2}(\frac{1}{\sqrt{2}}))  \\
+	&= (-4, 4)  \\
+	&= -4 + 4i
+\end{align*}
+
+
+%%%%%%%%%%
+
+\section{1.3.9}
+Find all the cube roots of $c = 1 + i$.
+
+First let $\rho = \sqrt{1^2 + 1^2} = \sqrt{2}$ and $\theta = \tan^{-1}(\frac{1}{1}) =\tan^{-1}(1) = \frac{\pi}{4}$
+
+\begin{align*}
+	c^{\frac{1}{3}} &= (\sqrt[3]{\rho}, \frac{1}{3}(\theta + k2\pi))  \\
+			&= (\sqrt[3]{\sqrt{2}}, \frac{1}{3}(\frac{\pi}{4} + k2\pi)) \\
+			&= (\sqrt[6]{2}, \frac{1}{3}(\pi(\frac{1}{4} + 2k)))
+\end{align*}
+Now we can take values from $k \in \{0,1,2\}$, since there are 3 cube-roots. 
+$$(\sqrt[6]{2}, \frac{1}{3}(\pi(\frac{1}{4}))) = (\sqrt[6]{2}, \frac{\pi}{12})$$
+$$(\sqrt[6]{2}, \frac{1}{3}(\pi(\frac{1}{4} + 2))) = (\sqrt[6]{2}, \frac{3\pi}{4})$$
+$$(\sqrt[6]{2}, \frac{1}{3}(\pi(\frac{1}{4} + 4))) = (\sqrt[6]{2}, \frac{17\pi}{12})$$
+
+%%%%%%%%%%
+
+\section{1.3.10}
+Prove $\textbf{De Moivre's formula}$: \\
+$$(e^{\theta i})^n = \cos(n\theta) + i \sin(n\theta)$$
+
+\begin{proof}
+	We proceed by induction. 
+	In the base case, assume $n=0$. We show $(e^{\theta i})^0 = \cos(0\times \theta) + i \sin(0\times\theta)$.
+	So $(e^{\theta i})^0 = 1$ and $\cos(0) + i\sin(0) = 1 + 0 = 1$, thus the statement holds in the base case.
+
+	In the inductive case, we first assume the statement for $n$ and we show it for $n+1$.
+	This means we fix $n$ and assume $(e^{\theta i})^n = \cos(n\theta) + i \sin(n\theta)$. 
+	Next we show $(e^{\theta i})^{n+1} = \cos((n+1)\theta) + i \sin((n+1)\theta)$.
+	First we see that $(e^{\theta i})^{n+1} = (e^{\theta i})(e^{\theta i})^n$. 
+	And we know $e^{\theta i} = \cos\theta + i\sin \theta$. Our induction hypothesis applies and we have 
+	$$(e^{\theta i})^{n+1} = (\cos\theta + i\sin \theta)(\cos(n\theta) + i \sin(n\theta)) = (\cos((n+1)\theta) + i \sin((n+1)\theta))$$
+\end{proof}
+
+%%%%%%%%%%
+
+\section{1.3.11}
+Write the number $c = 3 - 4i$ in exponential form.
+
+First we convert to polar form: 
+$$\rho = \sqrt{3^2 + (-4)^2} = \sqrt{25} = 5$$  $$\theta = tan^{-1}(\frac{-4}{3}) = -tan^{-1}(\frac{4}{3})$$
+And in exponential form we have $\rho e^{i\theta} = 5e^{-tan^{-1}(\frac{4}{3})i} =  5e^{-0.927i}  $
+
+%%%%%%%%%%
+
+\section{1.3.12}
+Rewrite the law for dividing complex numbers in exponential form.
+
+Recall the law for multiplying complex numbers in exponential form: 
+$$c_1c_2 = \rho_1e^{i\theta_1}\rho_2e^{i\theta_2} = \rho_1\rho_2e^{i(\theta_1 + \theta_2)}  $$
+We want to define $\frac{c_1}{c_2} = xe^{iy}$. 
+So we must have $c_1 = c_2xe^{iy} = \rho_2xe^{i(\theta_2 + y)} \Rightarrow x = \frac{\rho_1}{\rho_2},\ y = \theta_1 - \theta_2$.
+Thus $$\frac{\rho_1e^{i\theta_1}}{\rho_2e^{i\theta_2}} = \frac{\rho_1}{\rho_2}e^{i(\theta_1 - \theta_2)}$$
+This matches our intuition, as the magnitudes are divided (inverse of multiplication) and the phases are subtrated (inverse of addition).
+%%%%%%%%%%
+%%%%%%% 2.1.1 - 2.2.7
+
+\newpage
+
+\section{2.1.1}
+Add the following vectors: 
+$\begin{bmatrix} 
+	5 + 13i \\
+	6 + 2i \\
+	0.53 - 6i \\
+	12
+\end{bmatrix}$
++ 
+$\begin{bmatrix} 
+	7 - 8i \\
+	4i \\
+	2 \\
+	9.4 + 3i	
+\end{bmatrix}$
+\vspace{0.2in}
+
+$= 
+\begin{bmatrix} 
+	(5 + 13i) + (7 - 8i) \\
+	(6 + 2i) + (4i) \\
+	(0.53 - 6i) + (2) \\
+	(12) + (9.4 + 3i)
+\end{bmatrix}
+=
+\begin{bmatrix} 
+	(5+7) +  (13 - 8)i \\
+	6 + (2+4)i \\
+	(0.53+2) - 6i \\
+	(12+9.4) + 3i
+\end{bmatrix}
+=
+\begin{bmatrix} 
+	12 +  5i \\
+	6 + 6i \\
+	2.53 - 6i \\
+	21.4 + 3i
+\end{bmatrix}$
+
+
+%%%%%%%%%%
+
+
+\section{2.1.2}
+Formally prove the associativity property of complex matrix addition.
+\begin{proof}
+	Fix three complex vectors $V,\ W,\ X$. We show $V + (W + X) = (V + W) + X$.
+	In our equational reasoning we only need to know that addition of complex numbers is associative.
+%	$(V + W)[j] = V[j] + W[j]$ where $V[j]$ is a complex number for any compelx vector $V$.
+%	And also that .
+\begin{align*}
+	(V + (W + X))[j] &= V[j] + (W + X)[j]  \\
+		        &= V[j] + (W[j] + X[j])   \\
+		        &= (V[j] + W[j]) + X[j]  \\
+		        &= (V + W)[j] + X[j]  \\
+		        &= ((V+W)+X)[j] \\
+			&= (V+W) + X
+	\end{align*}
+\end{proof}
+%%%%%%%%%%
+
+\section{2.1.3}
+Scalar multiply $8 - 2i$ with $\begin{bmatrix}
+				16 + 2.3i \\
+				-7i \\
+				6 \\
+				5 - 4i
+				\end{bmatrix} \Rightarrow  
+\begin{bmatrix}
+	(8-2i) \times (16 + 2.3i) \\
+	(8-2i) \times (-7i) \\
+	(8-2i) \times (6) \\
+	(8-2i) \times (5 - 4i)
+\end{bmatrix}
+=
+\begin{bmatrix}
+	132.6 + -13.6i \\
+	-14.0 - 56.0i \\
+	48 - 12i \\
+	32 - 42
+\end{bmatrix} $
+
+\section{2.1.4}
+Formally prove that $(c_1 + c_2) \cdot V = c_1 \cdot V + c_2 \cdot V$.
+
+\begin{proof}
+	Fix complex numbers $c_1, c_2$ and a complex vector $V$. We show $(c_1 + c_2) \cdot V = c_1 \cdot V + c_2 \cdot V$
+	\begin{align*}
+		((c_1 + c_2) \cdot V)[j] &= (((a_1+b_1i) + (a_2+b_2i)) \cdot V)[j] \\
+					 &= ((a_1+b_1i) + (a_2+b_2i)) \times V[j] \\
+					 &= (a_1+b_1i) \times V[j] + (a_2+b_2i) \times V[j] \\
+					 &= ((a_1 + b_1i) \cdot V)[j] + ((a_2 + b_2i) \cdot V)[j] \\
+					 &= (c_1 \cdot V + c_2 \cdot V)[j]
+	\end{align*}
+\end{proof}
+\newpage
+%% BEGIN Section 2
+
+\section{2.2.1} Let $r_1 = 2, r_2 = 3$, and $V = \begin{bmatrix}2 \\ -4 \\ 1 \end{bmatrix}$.
+	Verify Property (vi), i.e., calculate $r_1 \cdot (r_2 \cdot V)$ and $(r_1 \times r_2) \cdot V$ and show that they coincide.
+
+\begin{align*}
+	r_1 \cdot (r_2 \cdot V) &= 2 \cdot (3 \cdot \begin{bmatrix}2 \\ -4 \\ 1 \end{bmatrix}) \\
+		&= 2 \cdot \begin{bmatrix} 3 \times 2 \\  3 \times -4 \\  3 \times 1 \end{bmatrix} \\
+		&= \begin{bmatrix} 2 \times 3 \times 2 \\  2 \times 3 \times -4 \\ 2 \times  3 \times 1 \end{bmatrix} \\
+			&= (2 \times 3) \cdot  \begin{bmatrix}2 \\ -4 \\ 1 \end{bmatrix}  \\
+			&= (r_1 \times r_2) \cdot V 
+\end{align*}
+
+%%%%%%%%%%%%%%%%
+
+\section{2.2.2} Draw pictures in $\mathbb{R}^3$ that explain Properties (vi) and (viii) of the definition of a real vector space. 
+
+Property (vi) states that scalar multiplication respects complex multiplication, i.e., $c_1 \cdot (c_2 \cdot V) = (c_1 \times c_2) \cdot V$ \\
+this makes sense because you are just scaling then scaling again, which is the same as scaling the scalar then scaling the vector. 
+
+Property (viii) states that scalar multiplication distributes over complex addition, i.e., $(c_1 + c_2) \cdot V = c_1 \cdot V + c_2 \cdot V $. 
+This makes sense because you are going to stretch V by a scalar resulting from adding two scalars. 
+Then you could scale the vector by one of the scalars, and separately scale it by the other. 
+Then you can make a parallelgoram with these scaled values to find the addition. 
+
+%%%%%%%%%%%%%%%%
+
+\section{2.2.3} Let $c_1 = 2i$, $c_2 = 1 + 2i$ and 
+$A = \begin{bmatrix}1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix}$.  
+	Verify Properties (vi) and (viii) in showing $\mathbb{C}^{2 \times 2}$ is a complex vector space.\\
+	\begin{enumerate}
+		\item[Prop (vi)] Scalar multiplication respects complex multiplication. \\
+			We show $c_1 \cdot (c_2 \cdot A) = (c_1 \times c_2) \cdot A$ 
+			\begin{align*}
+				c_1 \cdot (c_2 \cdot A) &= 2i \cdot (1+2i \cdot 
+				\begin{bmatrix} 1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix})  \\
+							&= 2i \cdot 
+				\begin{bmatrix} (1+2i) \times (1 - i) & (1+2i) \times 3 \\ 
+				(1+2i) \times (2+2i) & (1+2i) \times (4+i)  \end{bmatrix} \\
+							&= 
+							\begin{bmatrix} 2i \times (1+2i) \times (1 - i) 
+								& 2i \times (1+2i) \times 3 \\ 
+								2i \times (1+2i) \times (2+2i) 
+							& 2i \times (1+2i) \times (4+i)  
+							\end{bmatrix} \\
+							&= (2i \times (1+2i)) \cdot \begin{bmatrix}1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix} \\
+							&= (c_1 \times c_2) \cdot A) 
+			\end{align*}
+
+		\item[Prop (viii)] Scalar multiplication distributes over complex addition. \\
+			We show $(c_1 + c_2) \cdot A = c_1 \cdot A + c_2 \cdot A$
+			\begin{align*}
+                                (c_1 + c_2) \cdot A 
+                                &= (2i + (1+2i)) \cdot 
+                                \begin{bmatrix}1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix} \\
+                                &=   
+                                \begin{bmatrix} 
+                                (2i + (1+2i)) \times 1 - i & 
+                                (2i + (1+2i)) \times 3 \\ 
+                                (2i + (1+2i)) \times 2+2i & 
+                                (2i + (1+2i)) \times 4+i  
+                                \end{bmatrix} \\
+                                &=   
+                                \begin{bmatrix} 
+                                2i \times (1-i) + (1+2i) \times (1-i) & 
+                                2i \times 3 + (1+2i) \times 3 \\
+                                2i \times (2+2i) + (1+2i) \times (2+2i) & 
+                                2i \times (4+i) + (1+2i) \times (4+i) 
+                                \end{bmatrix} \\
+				&=
+				\begin{bmatrix} 
+                                2i \times (1-i)  & 
+                                2i \times 3 \\
+                                2i \times (2+2i)  & 
+                                2i \times (4+i) 
+                                \end{bmatrix} 
+                                +
+                                \begin{bmatrix}
+                                	(1+2i) \times (1-i) &
+                                	(1+2i) \times 3 \\
+                                	(1+2i) \times (2+2i) &
+                                	(1+2i) \times (4+i)
+                                \end{bmatrix} \\
+                                &= 2i \cdot \begin{bmatrix}1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix}
+                                	+ (1+2i) \cdot 
+                                	\begin{bmatrix}1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix} \\
+                                &= c_1 \cdot A + c_2 \cdot A 
+			\end{align*}
+	\end{enumerate}
+% \begin{bmatrix}1 - i & 3 \\ 2+2i & 4+i  \end{bmatrix}
+%%%%%%%%%%%%%%%%
+
+\section{2.2.4} Show that these operations on $\mathbb{C}^{m \times n}$ satisfy Properties (v), (vi), and (viii) of being a complex vector space.
+
+\begin{enumerate}
+\item[Property (v)] Scalar multiplication has a unit. \\ 
+	Fix a complex vector $V \in \mathbb{C}^{m \times n}$.
+		We give a $\mathds{1}$ so that $\mathds{1} \cdot V = V$. \\
+		Let $\mathds{1}$ be $1 = (1,0)$ in Cartesian form. 
+		Since this is the identity for complex multiplication, the elements of $V$ will not change. Therefore $\mathds{1}$ is a unit for scalar multiplication.
+		\newpage
+\item[Property (vi)] Scalar multiplication respects complex multiplication. 
+	Show $c_1 \cdot (c_2 \cdot V) = (c_1 \times c_2) \cdot V$ \\
+		Fix $c_1, c_2 \in \mathbb{C}$ and $V \in \mathbb{C}^{m \times n}$. 
+		\begin{align*}
+			c_1 \cdot (c_2 \cdot V) 
+			&= (c_1 \cdot (c_2 \cdot V))[j,k] \\
+			&= c_1 \times (c_2 \cdot V)[j,k] \\
+			&= c_1 \times c_2 \times V[j,k] \\
+			&= (c_1 \times c_2) \times V[j,k] \\
+			&= ((c_1 \times c_2) \cdot V)[j,k] \\
+			&= (c_1 \times c_2) \cdot V
+		\end{align*}
+
+\item[Property (viii)] Scalar multiplication distributes over complex addition. 
+	Show $(c_1 + c_2) \cdot V = c_1 \cdot V + c_2 \cdot V$
+		Fix $c_1, c_2 \in \mathbb{C}$ and $V \in \mathbb{C}^{m \times n}$. 
+		\begin{align*}
+			(c_1 + c_2) \cdot V 
+			&= ((c_1 + c_2) \cdot V)[j,k] \\
+			&= (c_1 + c_2) \times V[j,k] \\
+			&= c_1 \times V[j,k] + c_2 \times V[j,k]\\
+			&= (c_1 \cdot V)[j,k] + (c_2 \cdot V)[j,k]\\
+			&= ((c_1 \cdot V) + (c_2 \cdot V))[j,k] \\ 
+			&= (c_1 \cdot V) + (c_2 \cdot V)
+		\end{align*}
+
+
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%
+\newpage
+
+\section{2.2.5} Find the transpose, conjugate, and adjoint of 
+$\begin{bmatrix}
+	6 - 3i & 2 + 12i & -19i \\
+	0 & 5 + 2.1i & 17 \\
+	1 & 2 + 5i & 3 - 4.5i 
+\end{bmatrix}$
+
+\begin{enumerate}
+\item[Transpose]
+$\begin{bmatrix}
+	6 - 3i   & 0        & 1 \\
+	2 + 12i  & 5 + 2.1i & 2 + 5i  \\
+	-19i     & 17  & 3 - 4.5i 
+\end{bmatrix}$
+		\vspace{0.3in}
+\item[Conjugate]
+$\begin{bmatrix}
+	6 + 3i & 2 - 12i & 19i \\
+	0 & 5 - 2.1i & 17 \\
+	1 & 2 - 5i & 3 + 4.5i 
+\end{bmatrix}$
+
+		\vspace{0.3in}
+\item[Adjoint]
+$\begin{bmatrix}
+	6 + 3i   & 0        & 1 \\
+	2 - 12i  & 5 - 2.1i & 2 - 5i  \\
+	19i     & 17  & 3 + 4.5i 
+\end{bmatrix}$
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%
+
+\section{2.2.6} Prove that conjugation respects scalar multiplication; i.e., $\overline{c \cdot A} = \overline{c} \cdot \overline{A}$
+
+\begin{proof}
+	Fix a complex number $c = a+bi$ and a vector $A$ over $\mathbb{C}$. 
+	Let $c_A = c+di$ be an arbitrary element of $A$. It suffices to show $\overline{c\times c_A} = \overline{c} \times \overline{c_A}$
+	\begin{align*}
+		\overline{c \times c_A} 
+		&= \overline{a+bi \times c+di} \\
+		&= \overline{(ac-bd) + (ad + bc)i} \\
+		&= (ac-bd) - (ad + bc)i \\
+		&= (a-bi)(c-di) \\
+		&= \overline{a+bi} \times \overline{c+di} \\
+		&= \overline{c} \times \overline{c_A}
+	\end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%
+
+\section{2.2.7} Prove Properties (vii), (viii), and (ix) using Properties (i)-(vi).
+
+Recall that the adjoint of $A$, denoted as $A^{\dagger}$ is defined as either
+$$A^{\dagger} = (\overline{A})^T = \overline{(A^T)}$$
+
+\begin{enumerate}
+	\item[Property (i)] Transpose is idempotent: 
+		$(A^T)^T = A$
+	\item[Property (ii)] Transpose respects addition: 
+		$(A+B)^T = A^T + A^T$
+	\item[Property (iii)] Transpose respects scalar multiplication: 
+		$(c \cdot A)^T = c \cdot A^T$
+	\item[Property (iv)] Conjugate is idempotent: 
+		$\overline{\overline{A}} = A$
+	\item[Property (v)] Conjugate respects addition:
+		$\overline{(A+B)} = \overline{A} + \overline{B}$
+	\item[Property (vi)] Conjugate respects scalar multiplication: 
+		$\overline{c \cdot A} = \overline{c} \cdot \overline{A}$
+	\item[Property (vii)] Adjoint is idempotent: 
+		$(A^{\dagger})^{\dagger} = A$ 
+\begin{proof}
+	Fix a vector $A \in \mathbb{C}^{n \times n}$. We will use both definitions of 
+	adjoint to show $(A^{\dagger})^{\dagger} = A$. 
+	\begin{align*}
+		(A^{\dagger})^{\dagger} &= ((\overline{A})^T)^{\dagger}  \\
+		                        &= \overline{(((\overline{A})^T)^T)} \\
+					&= \overline{(\overline{A})} & (\texttt{Property i}) \\
+					&= A  & (\texttt{Property iv})
+	\end{align*}
+	\end{proof}
+		
+	\newpage
+
+	\item[Property (viii)] Adjoint respects addition: 
+		$(A+B)^{\dagger} = A^{\dagger} + B^{\dagger}$
+	\begin{proof}
+		Fix vectors $A,B \in \mathbb{C}^{n \times n}$. We show  
+		$(A+B)^{\dagger} = A^{\dagger} + B^{\dagger}$
+		\begin{align*}
+			(A+B)^{\dagger} &= \overline{(A+B)^T} \\
+					&= \overline{(A^T + B^T)} & (\texttt{Property ii}) \\
+					&= \overline{(A^T)} + \overline{(B^T)}  & (\texttt{Property v}) \\ 
+					&= A^{\dagger} + B^{\dagger}
+		\end{align*}
+	\end{proof}
+	\item[Property (ix)] Adjoint relates to scalar multiplication: 
+		$(c \cdot A)^{\dagger} = \overline{c} \cdot A^{\dagger}$
+	\begin{proof}
+		Fix a complex number $c$ and a vector $A \in \mathbb{C}^{n \times n}$. 
+		\begin{align*}
+			(c \cdot A)^{\dagger} &= (\overline{c \cdot A})^T \\
+			&= (\overline{c} \cdot \overline{A})^T & (\texttt{Property vi}) \\
+			&= \overline{c} \cdot \overline{A}^T & (\texttt{Property iii})  \\
+			&= \overline{c} \cdot A^{\dagger}
+		\end{align*}
+	\end{proof}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%
+
+\end{document}

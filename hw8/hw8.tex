@@ -1,0 +1,314 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{indentfirst}
+\usepackage{layout}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{physics}
+
+\DeclarePairedDelimiter\qb{\lvert}{\rangle}
+
+\def\tit{Quantum Programming HW8}
+\def\term{April 2020}
+
+\graphicspath{{.}}
+
+\def\auths{Joshua Larkin}
+
+\doublespacing
+
+\lhead{\term}
+\chead{\tit}
+\rhead{\thepage}
+\cfoot{}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\tit}}\\
+    \normalsize\vspace{0.1in}\small{B490 : Spring 2020 }\\
+    \vspace{0.1in}\large{\textit{\auths}}
+    \vspace{3in}
+}
+
+\date{}
+
+\newcommand{\icol}[1]{
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)
+}
+
+\def\aket{\ket{\alpha}}
+\def\bket{\ket{\beta}}
+\def\haf{\frac{1}{2}}
+\def\bfi{\ensuremath\textbf{i}}
+\def\srtt{\ensuremath\frac{1}{\sqrt{2}}}
+\def\em{\ensuremath e^{\frac{-\textbf{i}\pi}{4}}}
+\def\ep{\ensuremath e^{\frac{\textbf{i}\pi}{4}}}
+\def\swap{\texttt{SWAP}}
+\def\cnot{\texttt{cnot}}
+
+
+\def\bpp{\ket{\Phi^{+}}}
+\def\bpm{\ket{\Phi^{-}}}
+\def\bsp{\ket{\Psi^{+}}}
+\def\bsm{\ket{\Psi^{-}}}
+
+\renewcommand\headrulewidth{0.4pt}
+\fancyheadoffset{0.5 cm}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\topmargin -.3in
+\headsep 20pt
+%\footskip 20pt
+\textheight 8.5in
+\textwidth 6.25in
+
+\setlength\topmargin{0pt}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\setlength\oddsidemargin{0pt}
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-2in}
+\setlength\textheight{\paperheight}
+\addtolength\textheight{-2in}
+
+\begin{document}
+
+%%%% TITLE PAGE
+\maketitle
+\pagebreak
+
+%%%%% First content Page
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 1.1}
+Finish verifying the implementation of $\texttt{swap}$ presented in the lecture notes from March 31. 
+
+We write the definition of $\swap$ as: 
+\begin{align*}
+    \swap\ket{q_0q_4} = 
+    \ket{q_4q_0} &\leftarrow CX\ket{q_4q_0} \\
+    \ket{q_4q_0} &\leftarrow (H \otimes H)\ket{q_4q_0} \\
+    \ket{q_4q_0} &\leftarrow CX\ket{q_4q_0} \\
+    \ket{q_4q_0} &\leftarrow (H \otimes H)\ket{q_4q_0} \\
+    \ket{q_4q_0} &\leftarrow CX\ket{q_4q_0}  \\
+     \texttt{return} \ket{q_0q_4}
+\end{align*}
+
+The four cases of verification are $\ket{00},\ket{01},\ket{10},\ket{11}$. 
+
+\begin{itemize}
+\item[] Case $\ket{00}$ 
+\begin{align*}
+    \swap\ket{00} = 
+    \ket{00} &\leftarrow CX\ket{00} \\
+    \ket{++} &\leftarrow (H \otimes H)\ket{00} \\
+    \ket{++} &\leftarrow CX\ket{++} \\
+    \ket{00} &\leftarrow (H \otimes H)\ket{++} \\
+    \ket{00} &\leftarrow CX\ket{00}  \\
+     \texttt{return} \ket{00}
+\end{align*}
+
+
+\item[] Case $\ket{01}$ 
+\begin{align*}
+    \swap\ket{01} =  % q4 = 1, q0 = 0
+    \ket{11} &\leftarrow CX\ket{10} \\
+    \ket{--} &\leftarrow (H \otimes H)\ket{11} \\
+    \ket{+-} &\leftarrow CX\ket{--} \\
+    \ket{01} &\leftarrow (H \otimes H)\ket{+-} \\
+    \ket{01} &\leftarrow CX\ket{01}  \\
+     \texttt{return} \ket{10}
+\end{align*}
+
+\item[] Case $\ket{10}$ 
+\begin{align*}
+    \swap\ket{10} =  %q0 = 1 ; q4 = 0
+    \ket{01} &\leftarrow CX\ket{01} \\
+    \ket{+-} &\leftarrow (H \otimes H)\ket{01} \\
+    \ket{--} &\leftarrow CX\ket{+-} \\
+    \ket{11} &\leftarrow (H \otimes H)\ket{--} \\
+    \ket{10} &\leftarrow CX\ket{11}  \\
+     \texttt{return} \ket{01}
+\end{align*}
+
+\item[] Case $\ket{11}$ 
+\begin{align*}
+    \swap\ket{11} = 
+    \ket{10} &\leftarrow CX\ket{11} \\
+    \ket{-+} &\leftarrow (H \otimes H)\ket{10} \\
+    \ket{-+} &\leftarrow CX\ket{-+} \\
+    \ket{10} &\leftarrow (H \otimes H)\ket{-+} \\
+    \ket{11} &\leftarrow CX\ket{10}  \\
+     \texttt{return} \ket{11}
+\end{align*}
+
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 1.2}
+Verify the implementation of $\cnot$ presented in the lecture notes from March 31. 
+
+
+We write the definition of $\cnot$ as: 
+\begin{align*}
+    \cnot\ket{q_0q_1q_4} = 
+    \ket{q_0q_1q_4} &\leftarrow \texttt{padding}\\
+    \ket{q_4q_1q_0} &\leftarrow \swap\ket{q_0q_4} \\
+    \ket{q_4q_1q_0} &\leftarrow (H \otimes H \otimes I)\ket{q_4q_1q_0} \\
+    \ket{q_4q_1q_0} &\leftarrow CX\ket{q_0q_1} \\
+    \ket{q_4q_1q_0} &\leftarrow (H \otimes H \otimes I)\ket{q_4q_1q_0} \\
+    \ket{q_0q_1q_4} &\leftarrow \swap\ket{q_0q_4} \\
+     \texttt{return} \ket{q_0q_1q_4}
+\end{align*}
+
+The eight cases of verification are $\ket{000},\ket{001},\ket{010},\ket{011} ,\ket{100},\ket{101},\ket{110},\ket{111}$. 
+Although really, we only need to consider the cases for when $q_0 = 0$.
+
+Note that we always use value 0 for $q_0$.
+Also note that when we call SWAP, the notation is clunky but in this function (cnot) we are calling swap on the first and third bits, leaving the second bit as is.
+\begin{itemize}
+\item[] Case $\ket{000}$ 
+\begin{align*}
+    \cnot\ket{000} = 
+    \ket{000} &\leftarrow \swap\ket{00} \\
+    \ket{++0} &\leftarrow (H \otimes H \otimes I)\ket{000} \\
+    \ket{++0} &\leftarrow CX\ket{0+} \\
+    \ket{000} &\leftarrow (H \otimes H \otimes I)\ket{++0} \\
+    \ket{000} &\leftarrow \swap\ket{00} \\
+     \texttt{return} \ket{000}
+\end{align*}
+
+
+\item[] Case $\ket{001}$ 
+\begin{align*}
+    \cnot\ket{001} = % q1 = 0 ; q4 = 1
+    \ket{100} &\leftarrow \swap\ket{01} \\
+    \ket{-+0} &\leftarrow (H \otimes H \otimes I)\ket{100} \\
+    \ket{-+0} &\leftarrow CX\ket{-+} \\
+    \ket{100} &\leftarrow (H \otimes H \otimes I)\ket{-+0} \\
+    \ket{001} &\leftarrow \swap\ket{10} \\
+     \texttt{return} \ket{001}
+\end{align*}
+
+
+\item[] Case $\ket{010}$ 
+\begin{align*}
+    \cnot\ket{010} = % q1 = 1, q4 = 0
+    \ket{010} &\leftarrow \swap\ket{00} \\
+    \ket{+-0} &\leftarrow (H \otimes H \otimes I)\ket{010} \\
+    \ket{--0} &\leftarrow CX\ket{+-} \\
+    \ket{110} &\leftarrow (H \otimes H \otimes I)\ket{--0} \\
+    \ket{011} &\leftarrow \swap\ket{10} \\
+     \texttt{return} \ket{011}
+\end{align*}
+
+
+%\begin{align*}
+%    \cnot\ket{q_1q_4} = 
+%    \ket{q_0q_1q_4} &\leftarrow \texttt{padding}\\
+%    \ket{q_4q_1q_0} &\leftarrow \swap\ket{q_0q_4} \\
+%    \ket{q_4q_1q_0} &\leftarrow (H \otimes H \otimes I)\ket{q_4q_1q_0} \\
+%    \ket{q_4q_1q_0} &\leftarrow CX\ket{q_0q_1} \\
+%    \ket{q_4q_1q_0} &\leftarrow (H \otimes H \otimes I)\ket{q_4q_1q_0} \\
+%    \ket{q_0q_1q_4} &\leftarrow \swap\ket{q_0q_4} \\
+%     \texttt{return} \ket{q_1q_4}
+%\end{align*}
+%
+\item[] Case $\ket{011}$ 
+\begin{align*}
+    \cnot\ket{011} = 
+    \ket{110} &\leftarrow \swap\ket{01} \\
+    \ket{--0} &\leftarrow (H \otimes H \otimes I)\ket{110} \\
+    \ket{+-0} &\leftarrow CX\ket{--} \\
+    \ket{010} &\leftarrow (H \otimes H \otimes I)\ket{+-0} \\
+    \ket{010} &\leftarrow \swap\ket{00} \\
+     \texttt{return} \ket{010}
+\end{align*}
+
+\item[] Case $\ket{100}$
+\begin{align*}
+    \cnot\ket{100} = 
+    \ket{001} &\leftarrow \swap\ket{10} \\
+    \ket{++1} &\leftarrow (H \otimes H \otimes I)\ket{001} \\
+    \ket{++1} &\leftarrow CX\ket{1+} \\
+    \ket{001} &\leftarrow (H \otimes H \otimes I)\ket{++1} \\
+    \ket{100} &\leftarrow \swap\ket{01} \\
+     \texttt{return} \ket{100}
+\end{align*}
+
+\item[] Case $\ket{101}$
+\begin{align*}
+    \cnot\ket{101} = 
+    \ket{101} &\leftarrow \swap\ket{11} \\
+    \ket{-+1} &\leftarrow (H \otimes H \otimes I)\ket{101} \\
+    \ket{-+1} &\leftarrow CX\ket{1+} \\
+    \ket{101} &\leftarrow (H \otimes H \otimes I)\ket{-+1} \\
+    \ket{101} &\leftarrow \swap\ket{11} \\
+     \texttt{return} \ket{101}
+\end{align*}
+
+\item[] Case $\ket{110}$
+\begin{align*}
+    \cnot\ket{110} = 
+    \ket{011} &\leftarrow \swap\ket{10} \\
+    \ket{+-1} &\leftarrow (H \otimes H \otimes I)\ket{011} \\
+    \ket{+}(-\ket{-})\ket{1} &\leftarrow CX\ket{1-} \\
+    \ket{0}(-\ket{1})\ket{1} &\leftarrow (H \otimes H \otimes I)\ket{+}(-\ket{-})\ket{1} \\
+    \ket{1}(-\ket{1})\ket{0} &\leftarrow \swap\ket{10} \\
+     \texttt{return} \ket{1}(-\ket{1})\ket{0}
+\end{align*}
+
+
+\item[] Case $\ket{111}$
+\begin{align*}
+    \cnot\ket{111} = 
+    \ket{111} &\leftarrow \swap\ket{11} \\
+    \ket{--1} &\leftarrow (H \otimes H \otimes I)\ket{111} \\
+    \ket{-}(-\ket{-})\ket{1} &\leftarrow CX\ket{1-} \\
+    \ket{1}(-\ket{1})\ket{1} &\leftarrow 
+        (H \otimes H \otimes I)\ket{-}(-\ket{-})\ket{1} \\
+    \ket{1}(-\ket{1})\ket{1} &\leftarrow \swap\ket{11} \\
+     \texttt{return} \ket{1}(-\ket{1})\ket{1}
+\end{align*}
+
+\section*{Exercise 2}
+Run the attached Jupyter notebook $\texttt{hw8-deutsch.ipynb}$. Create 
+a similar notebook in which you analyze Deutsch-Josza for $n = 2$. 
+(That is, the function implemented by the oracle takes a 2-bit 
+input and outputs one bit.) You need not implement every possible oracle: choose two
+balanced functions and two constant functions. 
+
+We choose 4 functions that take 2-bits as input and output a single bit. 
+Our constant functions are simple. The first (A) sends everything to 1. The second (B)
+maps everything to 0. Then for our balanced function we have C: 
+\begin{align*}
+    00 &\mapsto 0 & 01 &\mapsto 0 \\
+    10 &\mapsto 1 & 11 &\mapsto 1 
+\end{align*}
+And our other balanced function D:
+\begin{align*}
+    00 &\mapsto 1 & 01 &\mapsto 1 \\
+    10 &\mapsto 0 & 11 &\mapsto 0 
+\end{align*}
+
+The jupyter notebook $\texttt{hw8-joshua.ipynb}$ contains the rest of the work for this section.
+
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}

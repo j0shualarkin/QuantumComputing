@@ -1,0 +1,8 @@
+}$ has the string 000 as its hidden subgroup generator. 
+
+This means the function implemented by the oracle is injective. 
+
+We see this from the property of the function: 
+$\forall x,y \in B^3. \ f(x) = f(y) \iff x \oplus y \in \{000\}$ 
+
+Because it naturally follows that $f(x) = f(y) \iff x = y$, since $x \oplus y = 000 \Rightarrow x = y$. 

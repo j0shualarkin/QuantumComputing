@@ -1,0 +1,51 @@
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg alpha[1]; // only care when alpha is 0
+qreg in[6]; // the last one is the answer bit
+creg out[6];
+
+barrier alpha, in;
+
+ccx in[3], in[4], alpha[0];
+cx in[3], in[4];
+cx in[4], alpha[0];
+cx in[3], in[4];
+
+barrier in, alpha;
+
+//    i[0] = in[0], 
+//    i[1] = in[1], 
+//    i[2] = alpha[0],
+//    i[3] = in[5];
+cccx in[0], in[1], alpha[0], in[5];
+
+
+cccx in[1], in[2], alpha[0], in[5];
+
+
+cccx in[0], in[2], alpha[0], in[5];
+
+
+cccx in[0], in[1], in[2], in[5];
+
+
+cccx in[0], in[3], in[4], in[5];
+
+
+cccx in[1], in[3], in[4], in[5];
+
+
+cccx in[2], in[3], in[4], in[5];
+
+barrier in, alpha;
+
+cx  in[3], in[4];
+cx  in[4], alpha[0];
+cx  in[3], in[4];
+ccx in[3], in[4], alpha[0];
+
+
+barrier alpha, in;
+
+measure in -> out;

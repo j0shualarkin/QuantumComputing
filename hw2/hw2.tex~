@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{indentfirst}
+\usepackage{layout}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\qb{\lvert}{\rangle}
+
+\def\tit{Quantum Programming HW2}
+\def\term{January 2020}
+\def\auths{Joshua Larkin}
+
+
+\doublespacing
+
+\lhead{\term}
+\chead{\tit}
+\rhead{\thepage}
+\cfoot{}
+
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\tit}}\\
+    \normalsize\vspace{0.1in}\small{B490 : Spring 2020 }\\
+    \vspace{0.1in}\large{\textit{\auths}}
+    \vspace{3in}
+}
+
+\date{}
+
+
+\newcommand{\icol}[1]{
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)
+}
+
+
+\newcommand{\n}{\newline}
+\renewcommand\headrulewidth{0.4pt}
+\fancyheadoffset{0.5 cm}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\topmargin -.3in
+\headsep 20pt
+%\footskip 20pt
+\textheight 8.5in
+\textwidth 6.25in
+
+\setlength\topmargin{0pt}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\setlength\oddsidemargin{0pt}
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-2in}
+\setlength\textheight{\paperheight}
+\addtolength\textheight{-2in}
+
+\begin{document}
+
+%%%% TITLE PAGE
+\maketitle
+\pagebreak
+
+%%%%% First content Page
+\section{Response}
+
+\begin{enumerate}
+\item[1.4] In order to implement fanout, we must have a bit we want to copy, say $x$, and two other bits. The second of the other bits will be a utility bit and
+  the third will be the copy of $x$.
+  We will set the other two bits to be 1 and 0, respectively.
+  Then we do a $\texttt{ccx}$ on the three bits ($x$, 1, 0). This will result
+  in the third bit being 1 if $x = 1$ and 0 if $x = 0$, and we have not altered $x$.
+  Since we took the second bit to be 1, and it would technically start at 0, we will
+  apply the $\texttt{x}$ gate to it afterwards, to set it back to its starting value.
+  \end{enumerate}
+
+\end{document}

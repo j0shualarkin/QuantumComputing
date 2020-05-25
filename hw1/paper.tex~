@@ -1,0 +1,126 @@
+\documentclass[11pt]{article}
+
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{indentfirst}
+\usepackage{layout}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter\qb{\lvert}{\rangle}
+
+\def\tit{Quantum Programming HW1}
+\def\term{January 2020}
+\def\auths{Joshua Larkin}
+
+
+\doublespacing
+
+\lhead{\term}
+\chead{\tit}
+\rhead{\thepage}
+\cfoot{}
+
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\tit}}\\
+    \normalsize\vspace{0.1in}\small{B490 : Spring 2020 }\\
+    \vspace{0.1in}\large{\textit{\auths}}
+    \vspace{3in}
+}
+
+\date{}
+
+
+\newcommand{\icol}[1]{
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)
+}
+
+
+\newcommand{\n}{\newline}
+\renewcommand\headrulewidth{0.4pt}
+\fancyheadoffset{0.5 cm}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\topmargin -.3in
+\headsep 20pt
+%\footskip 20pt
+\textheight 8.5in
+\textwidth 6.25in
+
+\setlength\topmargin{0pt}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\setlength\oddsidemargin{0pt}
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-2in}
+\setlength\textheight{\paperheight}
+\addtolength\textheight{-2in}
+
+\begin{document}
+
+%%%% TITLE PAGE
+\maketitle
+\pagebreak
+
+%%%%% First content Page
+\section{Response}
+
+Understanding Mermin's experiment and believing it are the core of his paper. He is interested in pushing readers to reconsider what 
+it means for them to believe something. Writing for a philosophy journal, Mermin writes with anticipation for people to wonder
+and challenge the results of the experiment. Mermin proceeds empirically by following the logical steps anyone might take to
+consider the possible results. Only, the actual result is starkly different from where "standard" reasoning takes us. 
+This unexpected result reveals some of the core ideas of cognition that we are welcome to reconsider. 
+To a certian extent, anyone would say that there must be some connection present that affects the results, yet Mermin
+thoroughly shows that such reasoning leaves one with little choice but to accept that standard methods of cognition 
+will not suffice. 
+
+
+The first result is that the two indicators always flash the same color when their switches have the same setting. 
+The second, and arguably more exciting, result is when the switches are in different settings, they flash the same 
+color in $\frac{1}{4}$ of the runs, and flash different colors in the remaining $\frac{3}{4}$ of the runs.
+Considering an explanation, it seems some finite explanation must make sense of the results. Yet, when one actually
+formalizes the problem, they find that the split should be $\frac{1}{3}$ and $\frac{2}{3}$, respectively. 
+And these probabilities are figured after running the experiment a large amount of the time. These latter figures are 
+computed by considering that the particles in the experiment are of a certain amount of possible states.
+However, this very asssumption is untenable because of the difference in results and calculated expectations. 
+It seems the more one tries to understand the problem, the less they do. A different approach is to try and 
+understand how one case could happen, but it seems when one finds such explanation, they are left with a 
+more difficult task of also explaining the other case. Hence, the results of the machine are completely abnormal 
+in some sense, and one is left to wonder only about what they do not know. 
+
+Mermin discusses possible connections within the device such as hidden wires, but there is a more abstract notion of connectedness. 
+"Physicists live with the existence of the device by implicitly denying the absence of connections between its pieces" (Mermin, p.407). 
+Just as a standard mathematical explanation does not suffice, the standard physicists would also presume some sort of 
+completeness regarding the pieces of the machine and its results. Mermin suggets that the absence of connections haunts people
+so much so that they quit trying to understand the machine without connections, and instead hold on to a more abstract principle about 
+there being undiscernable connections. This concept shows the magic of the experiment, because observers accept 
+that there is something greater at play that they do not understand. Perhaps they belive they could understand it if only
+given more information. Or Mermin's machine is in a rare category of spectacles that actually seems to reach into an 
+unknown world and provide results that are not to come with understanding. The result is an instance where nothing 
+about suggests there is a connectedness between parts in configuration or theory, yet on observation we are left thinking
+there must be. 
+
+I wonder about the impact of perception with regard to the implications of the experiment. How observation and mechanics that produce results
+are not exactly linked in the same way most people would believe. This is an attempt at saying there are more levels to why something happened 
+than just the immediately perceivable ones. Yet it seems to be a quality of humans, that we gather as much information as we feel necessary
+before we are prepared to make a stance or form a belief about why the thing happened. I think this is unavoidable in a certain sense, and with 
+practice, people are able to recognize one thought process and leave it for a certain in-the-moment presence. The experiment suggets to me 
+that this ability, the in-the-moment presence, has more to it than we appreciate or understand. Partly because it "swims up stream" compared to
+our usual analytic and judgmental mindsets. But also because we spend less time doing this. These ideas usually float around like daydreams or 
+assertions in contexts other than physics/computer science/philosophy, but it would seem quantum mechanics would direct us to reconsider
+what we are looking for when we observe something. 
+
+%%%%% Bibliography
+\newpage
+\section{Bibliography}  % \cite{name of entry}
+\begin{hangparas}{.25in}{1}
+N. David Mermin. Quantum mysteries for anyone. \textit{Journal of Philosophy} 78, 7 (Jul. 1981), 397-408
+
+\end{hangparas}
+
+\end{document}

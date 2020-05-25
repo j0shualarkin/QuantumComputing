@@ -1,0 +1,10 @@
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg i[4];
+creg o[4];
+
+barrier i;
+
+
+measure i -> o;

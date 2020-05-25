@@ -1,0 +1,1079 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{indentfirst}
+\usepackage{layout}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{physics}
+
+\DeclarePairedDelimiter\qb{\lvert}{\rangle}
+
+\def\tit{Quantum Programming HW7}
+\def\term{March 2020}
+
+\graphicspath{{.}}
+
+\def\auths{Joshua Larkin}
+
+\doublespacing
+
+\lhead{\term}
+\chead{\tit}
+\rhead{\thepage}
+\cfoot{}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\tit}}\\
+    \normalsize\vspace{0.1in}\small{B490 : Spring 2020 }\\
+    \vspace{0.1in}\large{\textit{\auths}}
+    \vspace{3in}
+}
+
+\date{}
+
+\newcommand{\icol}[1]{
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)
+}
+
+\def\aket{\ket{\alpha}}
+\def\bket{\ket{\beta}}
+\def\haf{\frac{1}{2}}
+\def\bfi{\ensuremath\textbf{i}}
+\def\srtt{\ensuremath\frac{1}{\sqrt{2}}}
+\def\em{\ensuremath e^{\frac{-\textbf{i}\pi}{4}}}
+\def\ep{\ensuremath e^{\frac{\textbf{i}\pi}{4}}}
+
+\def\bpp{\ket{\Phi^{+}}}
+\def\bpm{\ket{\Phi^{-}}}
+\def\bsp{\ket{\Psi^{+}}}
+\def\bsm{\ket{\Psi^{-}}}
+
+\renewcommand\headrulewidth{0.4pt}
+\fancyheadoffset{0.5 cm}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\topmargin -.3in
+\headsep 20pt
+%\footskip 20pt
+\textheight 8.5in
+\textwidth 6.25in
+
+\setlength\topmargin{0pt}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\setlength\oddsidemargin{0pt}
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-2in}
+\setlength\textheight{\paperheight}
+\addtolength\textheight{-2in}
+
+\begin{document}
+
+%%%% TITLE PAGE
+\maketitle
+\pagebreak
+
+%%%%% First content Page
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.2}
+
+Show by example that a linear combination of entangled states is 
+not necessarily entangled.
+
+\begin{proof}
+    Let $V = \{\ket{00},\ket{01},\ket{10},\ket{11}\}$ be the underlying vector space of a quantum state space. 
+    Consider the following tensor decomposition of $V$: $\ket{00}  \otimes \ket{01} \otimes \ket{10} \otimes \ket{11}$.\\
+    Let $\ket{\alpha} \in V$ such that $\ket{\alpha} = \srtt(\ket{00} + \ket{11})$
+    and $\ket{\beta} \in V$ such that $\ket{\beta} = \srtt(\ket{01} + \ket{10})$.  \\
+    We show that both $\ket{\alpha}$ and $\ket{\beta}$ are entangled with respect to the given tensor decomposition,
+    but a linear combination of them is not entangled.
+    \begin{enumerate}
+        \item[$\textbf{a.}$] $\ket{\alpha}$ entangled \\
+            Suppose towards a contradiction that $\aket$ is unentangled with respect to the given decomposition. \\
+            That is, 
+            \begin{align*}
+                \srtt(\ket{00} + \ket{11}) 
+                &= (c_1\ket{0} + d_1\ket{1}) \otimes (c_2\ket{0} + d_2\ket{1}) \\
+                &= c_1c_2\ket{00} + c_1d_2\ket{01} + d_1c_2\ket{10} + d_1d_2\ket{11} 
+            \end{align*} 
+        From this, we have the following equations: 
+            \begin{align*}
+                c_1c_2 &= \srtt & c_1d_2 = 0 \\
+                d_1c_2 &= 0  & d_1d_2 = \srtt 
+            \end{align*} 
+            Because we are in an integral domain, $c_1d_2 = 0$ implies that either $c_1 = 0$ or $d_2 = 0$.
+            But this is a contradiction since $c_1c_2 = \srtt$ and $d_1d_2 = \srtt$.  \\
+        Therefore $\ket{\alpha}$ is entangled with respect to the given decomposition.
+\newpage
+        \item[$\textbf{b.}$] $\bket$ entangled \\
+        Suppose towards a contradiction that $\bket$ is unentangled with respect to the given decomposition. \\
+            That is, 
+            \begin{align*}
+                \srtt(\ket{01} + \ket{10}) 
+                &= (c_1\ket{0} + d_1\ket{1}) \otimes (c_2\ket{0} + d_2\ket{1}) \\
+                &= c_1c_2\ket{00} + c_1d_2\ket{01} + d_1c_2\ket{10} + d_1d_2\ket{11} 
+            \end{align*} 
+        From this, we have the following equations: 
+            \begin{align*}
+                c_1c_2 &= 0 & c_1d_2 = \srtt \\
+                d_1c_2 &= \srtt  & d_1d_2 = 0
+            \end{align*} 
+            Because we are in an integral domain, $c_1c_2 = 0$ implies that either $c_1 = 0$ or $c_2 = 0$.
+            But this is a contradiction since $d_1c_2 = \srtt$ and $c_1d_2 = \srtt$.  \\
+        Therefore $\bket$ is entangled with respect to the given decomposition.
+
+
+
+        \item[$\textbf{c.}$] $\aket + \bket$ not entangled \\
+            We can take scalars of 1 for our linear combination and consider $\aket + \bket$.
+            \begin{align*}
+                \aket + \bket &= \srtt(\ket{00} + \ket{11}) + \srtt(\ket{01} + \ket{10}) \\
+                &= \srtt(\ket{00} + \ket{11} + \ket{01} + \ket{10}) \\
+                &= \srtt\ket{00} + \srtt\ket{11} + \srtt\ket{01} + \srtt\ket{10}
+            \end{align*}
+        Which is obviously not an entangled state with respect to the decomposition we gave.
+    \end{enumerate}
+\end{proof}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.3}
+
+Show that the state 
+
+$$\ket{W_n} = \frac{1}{\sqrt{n}}(\ket{0\dots001} + \ket{0\dots010} + \ket{0\dots100} 
++ \cdots + \ket{1\dots000})$$
+
+is entangled, with respect to the decomposition into the $n$ qubits, for every $n > 1$.
+
+\begin{proof}
+    Note: when we say a state is entangled in this proof, we mean entangled with respect to the decomposition into the $n$ qubits. 
+    Fix $n$ such that $n>1$. \\ Suppose, towards a contradiction, that $\ket{W_n}$ is unentangled. \\
+    Then we can write $\ket{W_n} = (c_1\ket{0} + d_1\ket{1}) \otimes (c_2\ket{0} + d_2\ket{1}) \otimes \cdots \otimes (c_n\ket{0} + d_n\ket{1})$
+    The resulting of the tensor products is very large and is of the form: 
+    $$c_1c_2\dots c_n\ket{0\dots000} + c_1d_2\dots c_n\ket{010\dots0} + \cdots + d_1\dots d_n\ket{1\dots111}$$
+    Examining the first two terms tells us that $c_1c_2\dots c_n = 0$ and $c_1d_2\dots c_n = \frac{1}{\sqrt{n}}$. \\
+    Since we are in an integral domain, we must have that each $c_i = 0$. \\
+    Yet, $c_1d_2\dots c_n = \frac{1}{\sqrt{n}}$, so we must have a contradiction.  \\
+    Therefore $\ket{W_n}$ is entangled with respect to the decomposition into $n$ qubits, for every $n > 1$.
+\end{proof}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.4}
+
+Show that the state 
+
+$$\ket{GHZ_n} = \srtt(\ket{00\dots0} + \ket{11\dots1})$$
+
+is entangled, with respect to the decomposition into the $n$ qubits, for every $n > 1$.
+
+
+\begin{proof}
+    Note: when we say a state is entangled in this proof, we mean entangled with respect to the decomposition into the $n$ qubits. 
+    Fix $n$ such that $n>1$. \\ Suppose, towards a contradiction, that $\ket{GHZ_n}$ is unentangled. \\
+    Then we can write $\ket{GHZ_n} = (c_1\ket{0} + d_1\ket{1}) \otimes (c_2\ket{0} + d_2\ket{1}) \otimes \cdots \otimes (c_n\ket{0} + d_n\ket{1})$
+    The resulting of the tensor products is very large and is of the form: 
+    $$c_1c_2\dots c_n\ket{0\dots000} + c_1d_2\dots c_n\ket{010\dots0} + \cdots + d_1\dots d_n\ket{1\dots111}$$
+    Examining the first two terms tells us that $c_1c_2\dots c_n = \srtt$ and $c_1d_2\dots c_n = 0$. \\
+    Since we are in an integral domain, we must have that $d_2 = 0$. \\
+    Yet, $d_1d_2\dots d_n = \srtt$, so we must have a contradiction.  \\
+    Therefore $\ket{GHZ_n}$ is entangled with respect to the decomposition into $n$ qubits, for every $n > 1$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.5}
+
+Is the state $\srtt(\ket{0}\ket{+} + \ket{1}\ket{-})$ entangled?
+
+This question does not make sense because it does not give a decomposition relative to the state.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.6}
+
+If someone asks you whether the state $\ket{+}$ is entangled, what will you say?
+\\
+That doesn't make sense, you must ask if the state is entangled relative to a decomposition of a tensor product space.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.7}
+
+Write the following states in terms of the Bell basis.
+
+\begin{itemize}
+    \item[$\textbf{a.}$] $\ket{00}$  \\
+        We can add the Bell states $\ket{\Phi^+}$ and $\ket{\Phi^-}$, scaling both by $\srtt$.
+        \begin{align*}
+         \srtt\ket{\Phi^+} + \srtt\ket{\Phi^-} 
+            &= \srtt(\srtt(\ket{00} + \ket{11})) + \srtt(\srtt(\ket{00} - \ket{11})) \\
+            &= \haf(\ket{00} + \ket{11} + \ket{00} - \ket{11}) \\
+            &= \haf(2\ket{00}) \\
+            &= \ket{00}
+        \end{align*} 
+
+    \item[$\textbf{b.}$] $\ket{+}\ket{-}$
+        \begin{align*}
+            \ket{+}\ket{-} 
+            &= \srtt(\ket{0} + \ket{1}) \otimes \srtt(\ket{0} - \ket{1}) \\
+            &= \srtt\srtt[(\ket{0} + \ket{1}) \otimes (\ket{0} - \ket{1})] \\
+            &= \frac{1}{2}(\ket{00} + \ket{10} - \ket{01} - \ket{11}) \\
+            &= \haf(\ket{00} - \ket{11}) + \haf(\ket{10} - \ket{01}) \\
+            &= \srtt\srtt(\ket{00} - \ket{11}) + \srtt\srtt(\ket{10} - \ket{01}) \\
+            &= \srtt\ket{\Phi^{-}} - \srtt\ket{\Psi^{-}}
+        \end{align*}
+        The last step folows from the fact that $-\ket{\Psi^{-}} = -\srtt(\ket{01} - \ket{10}) = \srtt(\ket{10} - \ket{01})$. \\
+        Therefore $\ket{+}\ket{-} = \srtt\ket{\Phi^{-}} - \srtt\ket{\Psi^{-}}$
+
+\newpage
+
+    \item[$\textbf{c.}$] $\frac{1}{\sqrt{3}}(\ket{00} + \ket{01} + \ket{10})$  \\
+        From the first part of this exercise we know $\ket{00} = \srtt(\bpp + \bpm)$.  \\
+        We claim $\ket{01} = \srtt(\bsp + \bsm)$ and $\ket{10} = \srtt(\bsp - \bsm)$. 
+        \begin{align*}
+            \srtt(\bsp + \bsm) &= \srtt(\srtt(\ket{01} + \ket{10}) + \srtt(\ket{01} - \ket{10})) \\
+            &= \haf((\ket{01} - \ket{10}) + (\ket{01} - \ket{10})) \\
+            &= \haf(2\ket{01}) \\
+            &= \ket{01} \\
+            \srtt(\bsp - \bsm) &= \srtt(\srtt(\ket{01} + \ket{10}) - \srtt(\ket{01} - \ket{10})) \\
+            &= \haf((\ket{01} + \ket{10}) - (\ket{01} - \ket{10})) \\
+            &= \haf(\ket{01} + \ket{10} - \ket{01} + \ket{10}) \\
+            &= \haf(2\ket{10}) \\
+            &= \ket{10} 
+        \end{align*}
+        Therefore the given state can be written as $$\frac{1}{\sqrt{3}}(\srtt(\bpp + \bpm) + \srtt(\bsp + \bsm) + \srtt(\bsp - \bsm))$$
+        We can simplify this to  
+        $$\frac{1}{\sqrt{3}}\srtt(\bpp + \bpm + 2\bsp)$$
+        Now we will verify this result:
+        \begin{align*}
+            (\bpp + \bpm + 2\bsp)  % dont forget: \frac{1}{\sqrt{3}}\srtt on the outside
+            &= (\srtt(\ket{00} + \ket{11}) + \srtt(\ket{00} - \ket{11}) + 2(\srtt(\ket{01} + \ket{10}))) \\
+            &= \srtt(\ket{00} + \ket{11} + \ket{00} - \ket{11} + 2\ket{01} + 2\ket{10}) \\
+            &= \srtt(2\ket{00} + 2\ket{01} + 2\ket{10}) & (A) \\
+            \frac{1}{\sqrt{3}}\srtt(A) &= \frac{1}{\sqrt{3}}\srtt(\srtt(2\ket{00} + 2\ket{01} + 2\ket{10})) \\
+            &= \frac{1}{\sqrt{3}}\haf((2\ket{00} + 2\ket{01} + 2\ket{10})) \\
+            &= \frac{1}{\sqrt{3}}(\ket{00} + \ket{01} + \ket{10}) 
+        \end{align*}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.8}
+
+\begin{itemize}
+    \item[$\textbf{a.}$] Show that $\srtt(\ket{0}\ket{0} + \ket{1}\ket{1})$ 
+        and $\srtt(\ket{+}\ket{+} + \ket{-}\ket{-})$ refer to the same 
+        quantum state. 
+    \begin{proof}
+        We know $\srtt(\ket{0}\ket{0} + \ket{1}\ket{1}) = \srtt(\ket{00} + \ket{11})$.
+        Let's see about the other:
+        \begin{align*}
+            \ket{+}\ket{+} &= (\srtt(\ket{0} + \ket{1})) \otimes
+            (\srtt(\ket{0} + \ket{1}))
+            \\
+            &= \haf((\ket{0} + \ket{1}) \otimes (\ket{0} + \ket{1})) \\
+            &= \haf(\ket{00} + \ket{10} + \ket{01} + \ket{11})\\ %% end ++
+            \ket{-}\ket{-} &= (\srtt(\ket{0} - \ket{1})) \otimes (\srtt(\ket{0} - \ket{1})) \\
+            &= \haf((\ket{0} - \ket{1})\otimes (\ket{0} - \ket{1})) \\
+            &= \haf(\ket{00} - \ket{10} - \ket{01} + \ket{11}) \\ %% end --
+            \ket{+}\ket{+} + \ket{-}\ket{-}  &= \haf((\ket{00} + \ket{10} + \ket{01} + \ket{11}) + (\ket{00} - \ket{10} - \ket{01} + \ket{11}))  \\
+            &= \haf(2\ket{00} + 2\ket{11}) \\
+            &= \ket{00} + \ket{11} \\
+            \srtt(\ket{+}\ket{+} + \ket{-}\ket{-}) &= \srtt(\ket{00} + \ket{11})
+        \end{align*}
+        There we have it! So, $\srtt(\ket{0}\ket{0} + \ket{1}\ket{1}) = \srtt(\ket{+}\ket{+} + \ket{-}\ket{-})$ and are equivalent quantum states.
+    \end{proof}
+    
+\item[$\textbf{b.}$] Show that $\srtt(\ket{0}\ket{0} - \ket{1}\ket{1})$
+        refers to the same state as
+        $\srtt(\ket{\bfi}\ket{\bfi} + \ket{-\bfi}\ket{-\bfi})$
+    \begin{proof}
+        \begin{align*}
+        \ket{\bfi}\ket{\bfi} 
+            &= \srtt(\ket{0} + i\ket{1}) \otimes \srtt(\ket{0} + i\ket{1}) \\
+            &= \haf((\ket{0} + i\ket{1}) \otimes (\ket{0} + i\ket{1})) \\
+            &= \haf(\ket{00} + i\ket{10} + i\ket{01} - \ket{11})  %% end pos
+        \end{align*}
+        \begin{align*}
+        \ket{-\bfi}\ket{-\bfi} 
+            &= \srtt(\ket{0} - i\ket{1}) \otimes \srtt(\ket{0} - i\ket{1}) \\ 
+            &= \haf((\ket{0} - i\ket{1}) \otimes (\ket{0} - i\ket{1})) \\ 
+            &= \haf(\ket{00} - i\ket{10} - i\ket{01} - \ket{11}) %% end neg
+        \end{align*}
+        \begin{align*}
+        \ket{\bfi}\ket{\bfi} + \ket{-\bfi}\ket{-\bfi} 
+            &= \haf(\ket{00} + i\ket{10} + i\ket{01} - \ket{11}) + \haf(\ket{00} - i\ket{10} - i\ket{01} + \ket{11}) \\
+            &= \haf(2\ket{00} - 2\ket{11})   \\
+            &= \ket{00} - \ket{11}
+        \end{align*}
+        So $\srtt(\ket{\bfi}\ket{\bfi} + \ket{-\bfi}\ket{-\bfi}) = \srtt(\ket{00} - \ket{11}) = \srtt(\ket{0}\ket{0} - \ket{1}\ket{1})$. \\
+        Thus the two states are equivalent.
+    \end{proof}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Exercise 3.9b}
+
+Show that this representation is unique in the sense that any two different vectors
+of this form represent different quantum states. 
+\begin{proof}
+    Fix a number $n$ of qubits. Let's take two different vectors of the given form:
+$$s = b_{0}\ket{0\dots00} + b_{1}\ket{0\dots01} + \cdots + b_{2^{n}-1}\ket{1\dots11}$$
+$$t = c_{0}\ket{0\dots00} + c_{1}\ket{0\dots01} + \cdots + c_{2^{n}-1}\ket{1\dots11}$$
+where the first non-zero $b_i$ and $c_i$ are real and non-negative.
+We proceed by the contrapositive. That is, we assume the two states are equivlanet, and we show that they are equal as vectors.
+So we assume there is a modulus 1 complex number $z$ such that 
+    $$z(b_{0}\ket{0\dots00} + b_{1}\ket{0\dots01} + \cdots + b_{2^{n}-1}\ket{1\dots11})
+    = c_{0}\ket{0\dots00} + c_{1}\ket{0\dots01} + \cdots + c_{2^{n}-1}\ket{1\dots11} $$
+    Since $z$ is modulus 1, we have $z = e^{i\theta}$, in exponential form. 
+    We may assume without loss of generality that the first coefficient $b_0$ is real and non-negative. 
+    So when we multiply by z, we have $zb_0 = c_0$.
+    \begin{align*}
+        zb_0 &= e^{i\theta}b_0 \\
+        &= b_0e^{i\theta} \\
+        &= c_0 \\
+        &\Rightarrow b_0 = c_0
+    \end{align*}
+    In this process we assumed that $\theta = 0$, but technically it could be $-1$. However, our assumption 
+    that the first non-zero coefficient is real and positive, so $-1$ is not a possible value for theta.
+    Therefore, the two vectors are equal. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.10}
+
+Show that for any orthonormal basis 
+$B = \{\ket{\beta_1},\ket{\beta_2},\dots, \ket{\beta_n}\}$ 
+and \\ vectors $\ket{v} = a_1\ket{\beta_1} + a_2\ket{\beta_2} + \dots + a_n\ket{\beta_n}$ 
+and $\ket{w} = c_1\ket{\beta_1} + c_2\ket{\beta_2} + \dots + c_n\ket{\beta_n}$
+
+\begin{itemize}
+    \item[$\textbf{a.}$] the inner product $(w|v)$ of $\ket{v}$ and $\ket{w}$ is
+        $\overline{c_1}a_1 + \overline{c_2}a_2 + \dots + \overline{c_n}a_n$ \\
+        Since $\ket{w} = \begin{bmatrix}c_1 \\ c_2 \\ \vdots \\ c_n \end{bmatrix}$,
+            we have 
+            $\bra{w} = \begin{bmatrix}\overline{c_1} & \overline{c_2} & \cdots & \overline{c_n} \end{bmatrix}$. 
+            Then taking the product $\bra{w}\ket{v}$ is just multiplying the row vector $\bra{w}$ with the column vector $\ket{v}$
+            So we have 
+            $$\begin{bmatrix}\overline{c_1} & \overline{c_2} & \cdots & \overline{c_n} 
+            \end{bmatrix}
+            \begin{bmatrix}
+                a_1 \\ a_2 \\ \vdots \\ a_n
+            \end{bmatrix}$$
+        And the result is trivially $\overline{c_1}a_1 + \overline{c_2}a_2 + \dots + \overline{c_n}a_n$
+   % \begin{align*}
+   % \end{align*}
+
+\item[$\textbf{b.}$] the length squared of $\ket{v}$ is
+    $|\ket{v}|^2 = \bra{v}\ket{v} = |a_1|^2 + |a_2|^2 + \dots + |a_n|^2$.
+    \begin{align*}
+        \bra{v}\ket{v} &= \bra{v}\ket{ a_1\ket{\beta_1} + a_2\ket{\beta_2} + \dots + a_n\ket{\beta_n}} \\
+        &= a_1\bra{v}\ket{\beta_1} + a_2\bra{v}\ket{\beta_2} + \dots + a_n\bra{v}\ket{\beta_n} \\
+        &= a_1\overline{\bra{\beta_1}\ket{v}} + a_2\overline{\bra{\beta_2}\ket{v}} + \dots + a_n\overline{\bra{\beta_n}\ket{v}} \\
+        &= a_1\overline{\bra{\beta_1}\ket{a_1\ket{\beta_1} + a_2\ket{\beta_2} + \dots + a_n\ket{\beta_n}}} + \dots + a_n\overline{\bra{\beta_n}\ket{
+a_1\ket{\beta_1} + a_2\ket{\beta_2} + \dots + a_n\ket{\beta_n} }} \\
+&= a_1\overline{a_1}\bra{\beta_1}\ket{\beta_1} + a_1\overline{a_2}\bra{\beta_1}\ket{\beta_2} + \dots + a_n\overline{a_1}\bra{\beta_n}\ket{\beta_1} + \dots + a_n\overline{a_n}\bra{\beta_n}\ket{\beta_n} \\
+        &= a_1\overline{a_1} + \dots + a_n\overline{a_n} \ \ \ \ \ \   (\text{Orthonormality}) \\
+        &= |a_1|^2 + \dots + |a_n|^2
+    \end{align*}
+\end{itemize}
+Write all the steps in Dirac's bra/ket notation.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.12}
+
+Give an example of a two-qubit state that is a superposition with respect
+to the standard basis but that is not entangled.
+
+Consider the following state:
+$$\ket{00} + \ket{01} + \ket{10} + \ket{11}$$
+This is a proper linear combination of the basis vectors, so it is a superposition.
+And it is obviously not entangled with respect to the decomposition into two single qubits.
+E.g., the equation $$(c_0\ket{0} + d_0\ket{1}) \otimes (c_1\ket{0} + d_1\ket{1}) = c_0c_1\ket{00} + 
+c_0d_1\ket{01} + d_0c_1\ket{10} + d_0d_1\ket{11}$$
+holds with each coefficient equal to 1. So this is a superposition but not entangled.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Exercise 3.13}
+
+\begin{itemize}
+    \item[$\textbf{a.}$] Show that the four-qubit state 
+        $\ket{\psi} = \frac{1}{2}(\ket{00} + \ket{11} + \ket{22} + \ket{33})$ of 
+        example 3.2.3 is entangled with respect to the decomposition into two 
+        two-qubit subsytems consisting of the first and second qubits 
+        and the third and fourth qubits.
+    \begin{proof}
+        We show $\ket{\psi}$ is entangled with respect to the two two-qubit 
+        decomposition. To do this, we first assume that it is unentangled with respect
+        to this decomposition. That is, $\ket{\psi} = \frac{1}{2}(\ket{0000} + \ket{0101} + \ket{1010} + \ket{1111})$
+        unentangled with respect to the two two-qubit decomposition.
+        That is, we assume $\ket{\psi} = (c_0\ket{0}_0\ket{0}_1 + d_0\ket{1}_0\ket{1}_1) 
+        \otimes (c_1\ket{0}_2\ket{0}_3 + d_1\ket{1}_2\ket{1}_3)$
+        Carrying out the tensor product gives us:
+        $$\ket{\psi} = c_0c_1\ket{0000} + d_0c_1\ket{1100} + c_0d_1\ket{0011} + d_0d_1\ket{1111}$$
+        So we have the following equations 
+        \begin{align*}
+            c_0c_1 &= \haf & d_0c_1  = 0 \\
+            c_0d_1 &= 0 & d_0d_1 = \haf 
+        \end{align*}
+        Since $c_0d_1 = 0$, and we are in an integral domain, we must have either $c_0 = 0$ or $d_1 = 0$.
+        In the case that $c_0 = 0$, we have a contradiction because $c_0c_1 = \haf$.
+        In the case that $d_1 = 0$, we have a contradiction because $d_0d_1 = \haf$. \\
+        Therefore our assumption that $\ket{\psi}$ was unentangled with respect to this decomposition was wrong,
+        and we conclude that $\ket{\psi}$ is entangled with respect to the decomposition into two two-qubit subsystems consisting of the first and second qubits and the third and fourth qubits.
+    \end{proof}
+    \item[$\textbf{b.}$] For the four decompositions into two subsytems consisting 
+        of one and three qubits, say whether $\ket{\psi}$ is entangled or unentangled
+        with respect to each of these decompositions. \\
+        We will do each decomposition and split the cases based on which qubit is the single qubit (i.e. not in the three qubits).
+        Recall the definition of $\ket{\psi} = \haf(\ket{0000} + \ket{0101} + \ket{1010} + \ket{1111}) $.
+    \begin{enumerate}
+        \item[0.] $\ket{\psi} = (c_0\ket{0}_0 + d_0\ket{1}_0) \otimes (c_1\ket{0}_1\ket{0}_2\ket{0}_3 + d_1\ket{1}_1\ket{1}_2\ket{1}_3)$ \\
+            Assume that $\ket{\psi}$ is unentangled with respect to this decomposition.
+            \begin{align*} 
+                \ket{\psi} 
+                &= (c_0\ket{0}_0 + d_0\ket{1}_0) \otimes (c_1\ket{0}_1\ket{0}_2\ket{0}_3 + d_1\ket{1}_1\ket{1}_2\ket{1}_3) \\
+                &= c_0c_1\ket{0000} + c_0d_1\ket{0111}  + d_0c_1\ket{1000} + d_0d_1\ket{1111}
+            \end{align*}
+            So we must have
+            \begin{align*}
+                c_0c_1 &= \haf & c_0d_1 = 0 \\
+                d_0c_1 &= 0 & d_0d_1 = \haf 
+            \end{align*}
+            Since we are an integral domain and $c_0d_1 = 0$, we must have either $c_0 = 0$ or $d_0 = 0$. 
+            But we also have $c_0c_1 = \haf$ and $d_0d_1 = \haf$, so either way we have a contradiction.
+            Therefore $\ket{\psi}$ is entangled wtih respect to the decomposition into the first qubit and the remaining qubits.
+            \newpage
+        \item[1.]
+        $\ket{\psi} = (c_0\ket{0}_1 + d_0\ket{1}_1) 
+        \otimes (c_1\ket{0}_0\ket{0}_2\ket{0}_3 + d_1\ket{1}_0\ket{1}_2\ket{1}_3)$ \\
+            We have a map $\phi : V_0 \otimes V_1 \otimes V_2 \otimes V_3 \simeq V_1 \otimes (V_0 \otimes V_2 \otimes V_3)$ \\
+            Defined by $\phi(v_0 \otimes v_1 \otimes v_2 \otimes v_3) = v_1 \otimes (v_0 \otimes v_2 \otimes v_3) $ \\
+            So we will need to consider $\phi(\ket{\psi})$, which is equal to 
+            $$\haf(\ket{0}_1\ket{0}_0\ket{0}_2\ket{0}_3 + \ket{1}_1\ket{0}_0\ket{0}_2\ket{1}_3 + \ket{0}_1\ket{1}_0\ket{1}_2\ket{0}_3 + \ket{1}_1 \ket{1}_0\ket{1}_2\ket{1}_3)$$
+            Assume that $\phi(\ket{\psi})$ is unentangled with respect to this decomposition.
+            \begin{align*}
+                \phi(\ket{\psi})
+                &= (c_0\ket{0}_1 + d_0\ket{1}_1) \otimes (d_1\ket{0}_0\ket{0}_2\ket{0}_3 + \cdots + d_8\ket{1}_0\ket{1}_2\ket{1}_3) \\
+                &= c_0d_1\ket{0}_1\ket{0}_0\ket{0}_2\ket{0}_3 + d_0d_1\ket{1}_1\ket{0}_0\ket{0}_2\ket{0}_3 + \cdots + d_0d_8\ket{1}_1\ket{1}_0\ket{1}_2\ket{1}_3
+            \end{align*}
+            This gives us enough equations to work with. 
+            So we must have: 
+            \begin{align*}
+                c_0d_1 &= \haf \\
+                d_0d_1 &= 0 \\
+                d_0d_8 &= \haf
+            \end{align*}
+            The second equation means that either $d_0 = 0$ or $d_1 = 0$. Since $c_0d_1 = \haf$, we must have $d_0 = 0$.
+            Yet, $d_0d_8 = \haf$, so there is a contradiction. 
+            Hence $\phi(\ket{\psi})$, and therefore $\ket{\psi}$, is entangled with respect to this decomposition.
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            \newpage
+        \item[2.]
+        $\ket{\psi} = (c_0\ket{0}_2 + d_0\ket{1}_2) 
+        \otimes (c_1\ket{0}_0\ket{0}_1\ket{0}_3 + d_1\ket{1}_0\ket{1}_1\ket{1}_3)$ \\
+        We have a map $\phi : V_0 \otimes V_1 \otimes V_2 \otimes V_3 \simeq V_2 \otimes (V_0 \otimes V_1 \otimes V_3)$ \\
+            Defined by $\phi(v_0 \otimes v_1 \otimes v_2 \otimes v_3) = v_2 \otimes (v_0 \otimes v_1 \otimes v_3) $ \\
+            So we will need to consider $\phi(\ket{\psi})$, which is equal to 
+            $$\haf(\ket{0}_2\ket{0}_0\ket{0}_1\ket{0}_3 + \ket{1}_2\ket{0}_0\ket{0}_1\ket{1}_3 + \ket{0}_2\ket{1}_0\ket{1}_1\ket{0}_3 + \ket{1}_2 \ket{1}_0\ket{1}_1\ket{1}_3)$$
+            Assume that $\phi(\ket{\psi})$ is unentangled with respect to this decomposition.
+            \begin{align*}
+                \phi(\ket{\psi})
+                &= (c_0\ket{0}_2 + d_0\ket{1}_2) \otimes (d_1\ket{0}_0\ket{0}_1\ket{0}_3 + \cdots + d_8\ket{1}_0\ket{1}_1\ket{1}_3) \\
+                &= c_0d_1\ket{0}_2\ket{0}_0\ket{0}_1\ket{0}_3 + d_0d_1\ket{1}_2\ket{0}_0\ket{0}_1\ket{0}_3 + \cdots + d_0d_8\ket{1}_2\ket{1}_0\ket{1}_1\ket{1}_3
+            \end{align*}
+            We can study the coefficients of the first two terms and the last term (those written above).
+            \begin{align*}
+                c_0d_1 &= \haf \\
+                d_0d_1 &= 0 \\
+                d_0d_8 &= \haf
+            \end{align*}
+         The second equation means that either $d_0 = 0$ or $d_1 = 0$. Since $c_0d_1 = \haf$, we must have $d_0 = 0$.
+            Yet, $d_0d_8 = \haf$, so there is a contradiction. 
+            Hence $\phi(\ket{\psi})$, and therefore $\ket{\psi}$, is entangled with respect to this decomposition.
+
+            
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \newpage
+        \item[3.]
+        $\ket{\psi} = (c_0\ket{0}_3 + d_0\ket{1}_3) 
+        \otimes (c_1\ket{0}_0\ket{0}_1\ket{0}_2 + d_1\ket{1}_0\ket{1}_1\ket{1}_2)$
+
+             We have a map $\phi : V_0 \otimes V_1 \otimes V_2 \otimes V_3 \simeq V_3 \otimes (V_0 \otimes V_1 \otimes V_2)$ \\
+            Defined by $\phi(v_0 \otimes v_1 \otimes v_2 \otimes v_3) = v_3 \otimes (v_0 \otimes v_1 \otimes v_2) $ \\
+            So we will need to consider $\phi(\ket{\psi})$, which is equal to 
+            $$\haf(\ket{0}_3\ket{0}_0\ket{0}_1\ket{0}_2 + \ket{1}_3\ket{0}_0\ket{0}_1\ket{1}_2 + \ket{0}_3\ket{1}_0\ket{1}_1\ket{0}_2 + \ket{1}_3 \ket{1}_0\ket{1}_1\ket{1}_2)$$
+            Assume that $\phi(\ket{\psi})$ is unentangled with respect to this decomposition.
+            \begin{align*}
+                \phi(\ket{\psi})
+                &= (c_0\ket{0}_3 + d_0\ket{1}_3) \otimes (d_1\ket{0}_0\ket{0}_1\ket{0}_2 + \cdots + d_8\ket{1}_0\ket{1}_1\ket{1}_2) \\
+                &= c_0d_1\ket{0}_3\ket{0}_0\ket{0}_1\ket{0}_2 + d_0d_1\ket{1}_3\ket{0}_0\ket{0}_1\ket{0}_2 + \cdots + d_0d_8\ket{1}_3\ket{1}_0\ket{1}_1\ket{1}_2
+            \end{align*}
+            We can study the coefficients of the first two terms and the last term (those written above).
+            \begin{align*}
+                c_0d_1 &= \haf \\
+                d_0d_1 &= 0 \\
+                d_0d_8 &= \haf
+            \end{align*}
+         The second equation means that either $d_0 = 0$ or $d_1 = 0$. Since $c_0d_1 = \haf$, we must have $d_0 = 0$.
+            Yet, $d_0d_8 = \haf$, so there is a contradiction. 
+            Hence $\phi(\ket{\psi})$, and therefore $\ket{\psi}$, is entangled with respect to this decomposition.
+        \end{enumerate}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Exercise 4.1}
+
+Give the matrix, in the standard basis, for the following operators
+
+\begin{enumerate}
+    \item[$\textbf{a.}$] $\ket{0}\bra{0}$  \\
+        \begin{align*}
+            \ket{0}\bra{0} &= \begin{bmatrix}1 \\ 0 \end{bmatrix} \begin{bmatrix}1 & 0 \end{bmatrix} \\
+                &= \begin{bmatrix}1 & 0 \\ 0 & 0 \end{bmatrix} 
+        \end{align*}
+    \item[$\textbf{b.}$] $\ket{+}\bra{0} - \bfi\ket{-}\bra{1}$
+        \begin{align*}
+            \ket{+}\bra{0}  
+                &= 
+                 \begin{bmatrix}\srtt \\ \srtt \end{bmatrix}
+                 \begin{bmatrix}1 & 0\end{bmatrix}  \\
+                     &= \begin{bmatrix} \srtt & 0 \\ \srtt & 0 \end{bmatrix}
+                         & 
+        \end{align*}
+        \begin{align*}
+            \bfi\ket{-}\bra{1} 
+                &= \bfi(\begin{bmatrix}\srtt \\ -\srtt \end{bmatrix}
+                    \begin{bmatrix} 0  & 1 \end{bmatrix})  \\
+                &= \bfi\begin{bmatrix}
+                    0 & \srtt \\
+                    0 & -\srtt 
+                \end{bmatrix} \\
+                &= \begin{bmatrix}
+                    0 & \frac{\bfi}{\sqrt{2}} \\
+                    0 & -\frac{\bfi}{\sqrt{2}} 
+                \end{bmatrix}  & 
+        \end{align*}
+        \begin{align*}
+            \ket{+}\bra{0} - \bfi\ket{-}\bra{1} 
+            &= \begin{bmatrix} \srtt & 0 \\ \srtt & 0 \end{bmatrix}
+                - \begin{bmatrix}
+                    0 & \frac{\bfi}{\sqrt{2}} \\
+                    0 & -\frac{\bfi}{\sqrt{2}} 
+                \end{bmatrix} \\
+                &= \begin{bmatrix}
+                    \srtt & -\frac{\bfi}{\sqrt{2}} \\
+                    \srtt & \frac{\bfi}{\sqrt{2}}
+                \end{bmatrix} & 
+        \end{align*}
+    \item[$\textbf{c.}$] $\ket{00}\bra{00} + \ket{01}\bra{01}$
+        \begin{align*}
+        \ket{00}\bra{00} + \ket{01}\bra{01} 
+            &= \begin{bmatrix}
+                1 \\ 0 \\ 0 \\ 0
+                \end{bmatrix}
+                \begin{bmatrix}
+                    1 & 0 & 0 & 0
+                \end{bmatrix} + 
+                \begin{bmatrix}
+                    0 \\ 1 \\ 0 \\ 0
+                \end{bmatrix}
+                \begin{bmatrix}
+                    0 & 1 & 0 & 0
+                \end{bmatrix} \\
+            &= \begin{bmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+         \end{bmatrix}
+            + 
+            \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+            \end{bmatrix} \\
+        &= \begin{bmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+            \end{bmatrix} 
+        \end{align*}
+    \item[$\textbf{d.}$] $\ket{00}\bra{00} + \ket{01}\bra{01} + \ket{11}\bra{01} + 
+        \ket{10}\bra{11}$ \\
+        Here we can use the result we just found to simplify this expression. 
+        We know  $$\ket{00}\bra{00} + \ket{01}\bra{01}
+        = \begin{bmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+            \end{bmatrix}$$
+        So we shall find  $\ket{11}\bra{01} + \ket{10}\bra{11}$, 
+        and then add the two matrices.
+        \begin{align*}
+        \ket{11}\bra{01} + \ket{10}\bra{11}
+            &= \begin{bmatrix}
+                0 \\ 0 \\ 0 \\ 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                    0 & 1 & 0 & 0
+                \end{bmatrix} + 
+                \begin{bmatrix}
+                    0 \\ 0 \\ 1 \\ 0
+                \end{bmatrix}
+                \begin{bmatrix}
+                    0 & 0 & 0 & 1
+                \end{bmatrix} \\
+            &= \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+         \end{bmatrix}
+            + 
+            \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 0 & 0 & 0 \\
+            \end{bmatrix} \\
+        &= \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 1 & 0 & 0 \\
+            \end{bmatrix}
+        \end{align*}
+    Now we can combine the results:
+    \begin{align*}
+        \ket{00}\bra{00} + \ket{01}\bra{01} + \ket{11}\bra{01} + \ket{10}\bra{11}
+        &= \begin{bmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+            \end{bmatrix} + 
+            \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 1 & 0 & 0 \\
+            \end{bmatrix} \\
+        &= \begin{bmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 1 & 0 & 0 \\
+            \end{bmatrix}
+    \end{align*}
+
+    \item[$\textbf{e.}$] $\ket{\Psi^+}\bra{\Psi^+}$ where 
+        $\ket{\Psi^+} = \srtt(\ket{00} + \ket{11})$
+    \begin{align*}
+        \srtt(\ket{00} + \ket{11}) 
+        &= \srtt(\begin{bmatrix}1\\0\\0\\0\end{bmatrix}+\begin{bmatrix}0\\0\\0\\1\end{bmatrix}) \\
+        &= \srtt\begin{bmatrix}1\\0\\0\\1\end{bmatrix}
+    \end{align*}
+
+    \begin{align*}
+        \bsp\bra{\Psi^+} &= \srtt\begin{bmatrix}1\\0\\0\\1\end{bmatrix}
+            \srtt\begin{bmatrix}1&0&0&1\end{bmatrix} \\
+            &= \haf \begin{bmatrix}1\\0\\0\\1\end{bmatrix}
+            \begin{bmatrix}1&0&0&1\end{bmatrix} \\
+            &= \haf \begin{bmatrix}
+                1 & 0 & 0 & 1 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                1 & 0 & 0 & 1 \\
+            \end{bmatrix}
+    \end{align*}
+
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Exercise 4.2} Write the following operators in bra/ket notation
+
+\begin{enumerate}
+    \item[$\textbf{a.}$]
+    The Hadamard operator 
+        $H = \begin{pmatrix}\srtt & \srtt \\ \srtt & -\srtt \end{pmatrix}$
+    \\ 
+    From the previous exercise, we know 
+        $$\ket{+}\bra{0} = \begin{bmatrix} \srtt & 0 \\ \srtt & 0 \end{bmatrix}$$
+    Consider $\ket{-}\bra{1}$. 
+    \begin{align*}
+        \ket{-}\bra{1} &= \begin{bmatrix}\srtt \\ -\srtt\end{bmatrix}
+            \begin{bmatrix}0 & 1\end{bmatrix} \\
+            &= \begin{bmatrix}
+                0 & \srtt \\
+                0 & -\srtt
+            \end{bmatrix}
+    \end{align*}
+    We can get the desired matrix by adding these matrices:
+        \begin{align*}
+        \ket{+}\bra{0} + \ket{-}\bra{1}
+            &= \begin{bmatrix} 
+                \srtt & 0 \\ 
+                \srtt & 0 
+                \end{bmatrix}
+                + 
+                \begin{bmatrix}
+                0 & \srtt \\
+                0 & -\srtt
+                \end{bmatrix} \\
+            &= \begin{bmatrix}
+                \srtt & \srtt \\
+                \srtt & -\srtt
+                \end{bmatrix}
+        \end{align*}
+    So we know the bra/ket notation for the Hadamard operation is: 
+        $\ket{+}\bra{0} + \ket{-}\bra{1}$
+\newpage
+    \item[$\textbf{b.}$]
+    $X = \begin{pmatrix}0 & 1 \\ 1 & 0 \end{pmatrix}$ \\
+        The notation is $\ket{1}\bra{0} + \ket{0}\bra{1}$.
+\begin{align*}
+        \ket{1}\bra{0} + \ket{0}\bra{1}
+        &= \begin{bmatrix}
+            0 \\ 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0
+        \end{bmatrix}
+        + \ket{0}\bra{1} \\
+        &= \begin{bmatrix}
+            0 \\ 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0
+        \end{bmatrix}
+        +
+        \begin{bmatrix}
+            1 \\ 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & 1
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            0 & 0 \\
+            1 & 0 
+        \end{bmatrix}
+        + 
+        \begin{bmatrix}
+            0 & 1 \\
+            0 & 0 
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{bmatrix}
+    \end{align*}
+
+    \item[$\textbf{c.}$]
+    $Y = \begin{pmatrix}0 & 1 \\ -1 & 0 \end{pmatrix}$.
+        The notation is $\ket{0}\bra{1} - \ket{1}\bra{0}$. 
+        We know the matrices for the two terms.
+        \begin{align*}
+            \ket{0}\bra{1} &= \begin{bmatrix}
+            0 & 1 \\
+            0 & 0 
+        \end{bmatrix} \\
+            \ket{1}\bra{0} &= \begin{bmatrix}
+            0 & 0 \\
+            1 & 0 
+        \end{bmatrix} \\
+            \ket{0}\bra{1} - \ket{1}\bra{0}
+            &= \begin{bmatrix}
+            0 & 1 \\
+            0 & 0 
+        \end{bmatrix} -
+        \begin{bmatrix}
+            0 & 0 \\
+            1 & 0 
+        \end{bmatrix} \\
+            &= 
+        \begin{bmatrix}
+            0 & 1 \\
+            -1 & 0 
+        \end{bmatrix}
+        \end{align*}
+
+    \item[$\textbf{d.}$]
+    $Z = \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}$.
+ The bra/ket notation is $\ket{0}\bra{0} - \ket{1}\bra{1}$.
+    We verify this now: 
+    \begin{align*}
+    \ket{0}\bra{0} - \ket{1}\bra{1} 
+        &= \begin{bmatrix}
+            1 \\ 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0
+        \end{bmatrix}
+        - \ket{1}\bra{1} \\
+        &= \begin{bmatrix}
+            1 \\ 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0
+        \end{bmatrix}
+        - 
+        \begin{bmatrix}
+            0 \\ 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & 1
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            1 & 0 \\
+            0 & 0 
+        \end{bmatrix}
+        - 
+        \begin{bmatrix}
+            0 & 0 \\
+            0 & 1 
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            1 & 0 \\
+            0 & -1
+        \end{bmatrix}
+    \end{align*}
+
+
+    \item[$\textbf{e.}$]
+        $\begin{pmatrix}
+            23 & 0 & 0 & 0 \\ 
+            0 & -5 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 9
+        \end{pmatrix}$
+    We claim the notation is: 
+    $23\ket{00}\bra{00} - 5\ket{01}\bra{01} + 9\ket{11}\bra{11}$. 
+    \begin{align*}
+        \ket{00}\bra{00} &= 
+        \begin{bmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix}\\
+        23\ket{00}\bra{00} &= 
+        \begin{bmatrix}
+            23 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix}\\
+    \end{align*}
+    \begin{align*}
+        \ket{01}\bra{01} &= 
+        \begin{bmatrix}
+        0 \\ 1 \\ 0 \\ 0
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & 1 & 0 & 0
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix} \\
+        5\ket{01}\bra{01} &= \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 5 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix} \\
+    \end{align*}
+    \begin{align*}
+        \ket{11}\bra{11} &= 
+        \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 \\
+        \end{bmatrix} \\
+        9\ket{11}\bra{11} &= \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 9 \\
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        23\ket{00}\bra{00} - 5\ket{01}\bra{01} + 9\ket{11}\bra{11}
+        &= \begin{bmatrix}
+            23 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix} - \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 5 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+        \end{bmatrix}  + 
+        \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 9 \\
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            23 & 0 & 0 & 0 \\ 
+            0 & -5 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 9
+        \end{bmatrix}
+    \end{align*}
+\newpage
+\item[$\textbf{f.}$] $X \otimes X$.
+    $$\text{The notation is: } \ket{00}\bra{11} + \ket{01}\bra{10} + \ket{10}\bra{01}
+    + \ket{11}\bra{00}$$
+    \begin{align*}
+        X \otimes X &= 
+                    \begin{bmatrix}0 & 1 \\ 1 & 0 \end{bmatrix}
+                        \otimes
+                    \begin{bmatrix}0 & 1 \\ 1 & 0 \end{bmatrix} \\
+                    &= 
+                    \begin{bmatrix}
+                        0 \cdot \begin{pmatrix}0 & 1 \\ 1 & 0 \end{pmatrix} 
+                    &   1 \cdot \begin{pmatrix}0 & 1 \\ 1 & 0 \end{pmatrix}  \\
+                        1 \cdot \begin{pmatrix}0 & 1 \\ 1 & 0 \end{pmatrix} 
+                    &   0 \cdot \begin{pmatrix}0 & 1 \\ 1 & 0 \end{pmatrix}  \\
+                    \end{bmatrix} \\
+                    &= \begin{bmatrix}
+                    0 & 0 & 0 & 1\\
+                    0 & 0 & 1 & 0\\
+                    0 & 1 & 0 & 0\\
+                    1 & 0 & 0 & 0\\
+                    \end{bmatrix} \\
+                    &= 
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 1\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    \end{bmatrix} +
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 1 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    \end{bmatrix} +
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 1 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    \end{bmatrix} + 
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    1 & 0 & 0 & 0\\
+                    \end{bmatrix} \\
+                    &= \begin{bmatrix}1 \\ 0 \\ 0 \\ 0\end{bmatrix}
+                       \begin{bmatrix}0 & 0 & 0 & 1\end{bmatrix} +
+                       \begin{bmatrix}0 \\ 1 \\ 0 \\ 0\end{bmatrix}
+                       \begin{bmatrix}0 & 0 & 1 & 0\end{bmatrix} +
+                       \begin{bmatrix}0 \\ 0 \\ 1 \\ 0\end{bmatrix}
+                       \begin{bmatrix}0 & 1 & 0 & 0\end{bmatrix} +
+                       \begin{bmatrix}0 \\ 0 \\ 0 \\ 1\end{bmatrix}
+                       \begin{bmatrix}1 & 0 & 0 & 0\end{bmatrix} \\
+                    &= \ket{00}\bra{11} + \ket{01}\bra{10} + \ket{10}\bra{01} + \ket{11}\bra{00} 
+    \end{align*}
+\newpage
+    \item[$\textbf{g.}$] $X \otimes Z$
+    $$\text{The notation is: } 
+    \ket{00}\bra{10} - \ket{01}\bra{11} + \ket{10}\bra{00} - \ket{11}\bra{01} $$
+    \begin{align*}
+        X \otimes Z &= 
+                    \begin{bmatrix}0 & 1 \\ 1 & 0 \end{bmatrix}
+                        \otimes
+                    \begin{bmatrix}1 & 0 \\ 0 & -1 \end{bmatrix} \\
+                    &= 
+                    \begin{bmatrix}
+                        0 \cdot \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix} 
+                    &   1 \cdot \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}  \\
+                        1 \cdot \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix} 
+                    &   0 \cdot \begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix}  \\
+                    \end{bmatrix} \\
+                    &= \begin{bmatrix}
+                    0 & 0 & 1 & 0\\
+                    0 & 0 & 0 & -1\\
+                    1 & 0 & 0 & 0\\
+                    0 & -1 & 0 & 0\\
+                    \end{bmatrix} \\
+                    &= 
+                    \begin{bmatrix}
+                    0 & 0 & 1 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    \end{bmatrix} -
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 1\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    \end{bmatrix} +
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    1 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    \end{bmatrix} -
+                    \begin{bmatrix}
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0\\
+                    0 & 1 & 0 & 0\\
+                    \end{bmatrix} \\
+                    &= \begin{bmatrix}1 \\ 0 \\ 0 \\ 0\end{bmatrix}
+                       \begin{bmatrix}0 & 0 & 1 & 0\end{bmatrix} -
+                       \begin{bmatrix}0 \\ 1 \\ 0 \\ 0\end{bmatrix}
+                       \begin{bmatrix}0 & 0 & 0 & 1\end{bmatrix} +
+                       \begin{bmatrix}0 \\ 0 \\ 1 \\ 0\end{bmatrix}
+                       \begin{bmatrix}1 & 0 & 0 & 0\end{bmatrix} -
+                       \begin{bmatrix}0 \\ 0 \\ 0 \\ 1\end{bmatrix}
+                       \begin{bmatrix}0 & 1 & 0 & 0\end{bmatrix} \\
+                    &= \ket{00}\bra{10} - \ket{01}\bra{11} + \ket{10}\bra{00} - \ket{11}\bra{01} 
+    \end{align*}
+\newpage
+    \item[$\textbf{h.}$] $H \otimes H$ 
+        We can configure the matrix by adding the action of $H \otimes H$ on each basis vector of the two-qubit state space basis.
+        That is, the notation follows from $$(H \otimes H)(\ket{0} \otimes \ket{0}) + (H \otimes H)(\ket{0} \otimes \ket{1}) + (H \otimes H)(\ket{1} \otimes \ket{0})
+        + (H \otimes H)(\ket{1} \otimes \ket{1})$$
+        We simplify this by using the properties of tensor products.
+        \begin{align*}
+            (H \otimes H)(\ket{0} \otimes \ket{0}) &= H\ket{0} \otimes H\ket{0} = \ket{+}\ket{+} \\
+            (H \otimes H)(\ket{0} \otimes \ket{1}) &= H\ket{0} \otimes H\ket{1} = \ket{+}\ket{-} \\
+            (H \otimes H)(\ket{1} \otimes \ket{0}) &= H\ket{1} \otimes H\ket{0} = \ket{-}\ket{+} \\
+            (H \otimes H)(\ket{1} \otimes \ket{1}) &= H\ket{1} \otimes H\ket{1} = \ket{-}\ket{-} \\
+        \end{align*}
+        Therefore the Dirac notation is 
+        $$ (\ket{+}\ket{+}\bra{0}\bra{0}) + (\ket{+}\ket{-}\bra{0}\bra{1}) + (\ket{-}\ket{+} \bra{1}\bra{0}) + (\ket{-}\ket{-}\bra{1}\bra{1}) $$
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

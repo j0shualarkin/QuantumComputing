@@ -1,0 +1,706 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{indentfirst}
+\usepackage{layout}
+\usepackage{hanging}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{physics}
+
+\DeclarePairedDelimiter\qb{\lvert}{\rangle}
+
+\def\tit{Quantum Programming HW6}
+\def\term{February 2020}
+
+\graphicspath{{.}}
+
+\def\auths{Joshua Larkin}
+
+\doublespacing
+
+\lhead{\term}
+\chead{\tit}
+\rhead{\thepage}
+\cfoot{}
+
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\tit}}\\
+    \normalsize\vspace{0.1in}\small{B490 : Spring 2020 }\\
+    \vspace{0.1in}\large{\textit{\auths}}
+    \vspace{3in}
+}
+
+\date{}
+
+\newcommand{\icol}[1]{
+  \left(\begin{smallmatrix}#1\end{smallmatrix}\right)
+}
+
+\def\bfi{\ensuremath\textbf{i}}
+\def\srtt{\ensuremath\frac{1}{\sqrt{2}}}
+\def\em{\ensuremath e^{\frac{-\textbf{i}\pi}{4}}}
+\def\ep{\ensuremath e^{\frac{\textbf{i}\pi}{4}}}
+\newcommand{\kzm}[1]{\begin{bmatrix}#1 \\ 0 \end{bmatrix}}
+\newcommand{\kom}[1]{\begin{bmatrix}0 \\ #1 \end{bmatrix}}
+
+\newcommand{\re}[1]{$\text{Re }$#1}
+\newcommand{\im}[1]{$\texttt{Im }#1$}
+
+\renewcommand\headrulewidth{0.4pt}
+\fancyheadoffset{0.5 cm}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\topmargin -.3in
+\headsep 20pt
+%\footskip 20pt
+\textheight 8.5in
+\textwidth 6.25in
+
+\setlength\topmargin{0pt}
+\addtolength\topmargin{-\headheight}
+\addtolength\topmargin{-\headsep}
+\setlength\oddsidemargin{0pt}
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-2in}
+\setlength\textheight{\paperheight}
+\addtolength\textheight{-2in}
+
+\begin{document}
+
+%%%% TITLE PAGE
+\maketitle
+\pagebreak
+
+%%%%% First content Page
+% \section{Work}
+% Do exercises 1.1.2 thru 1.3.12 and exercises 2.1.1 thru 2.2.7
+% Programming drills are optional
+
+%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+
+\section{Write the DFT matrix for $N = 2,3,4, \text{ and } 5.$}
+\begin{itemize}
+	\item[$N = 2$:] $$\omega = e^{i \pi} = -1$$
+	\begin{align*}
+		\frac{1}{\sqrt{2}} \begin{bmatrix}
+		1 & 1 \\
+		1 & \omega \\
+	\end{bmatrix} &= 
+	\frac{1}{\sqrt{2}}
+	\begin{bmatrix}
+		1 & 1 \\
+		1 & -1 \\
+	\end{bmatrix}
+	\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item[$N = 3$:] $$\omega = e^{\frac{2 i \pi}{3}}$$
+	\begin{align*}
+	\frac{1}{\sqrt{3}} 
+		\begin{bmatrix}
+		1 & 1 & 1 \\
+		1 & \omega & \omega^2 \\
+		1 & \omega^2 & \omega^4 \\
+		\end{bmatrix} &=
+		\frac{1}{\sqrt{3}}
+		\begin{bmatrix}
+		1 & 1 & 1 \\
+		1 & \omega & \omega^2 \\
+		1 & \omega^2 & \omega \\
+		\end{bmatrix} =
+		\frac{1}{\sqrt{3}}
+		\begin{bmatrix}
+		1 & 1 & 1 \\
+		1 & e^{\frac{2 i \pi}{3}} & e^{\frac{4 i \pi}{3}} \\
+		1 & e^{\frac{4 i \pi}{3}} & e^{\frac{2 i \pi}{3}} \\
+		\end{bmatrix}
+	\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item[$N = 4$:] 
+	\begin{align*}
+		\omega &= e^{\frac{2 i \pi}{4}} = e^{\frac{i \pi}{2}} = i\\
+		\omega^2 &= e^{i \pi} = -1 \\
+		\omega^3 &= e^{\frac{3i\pi}{2}} = -i \\
+		\omega^4 &= e^{2i\pi} = 1 \\
+		\omega^6 &= e^{\frac{6 i \pi}{2}} = e^{3i\pi} = e^{i\pi} = \omega^2 \\
+		\omega^9 &= e^{\frac{9 i \pi}{2}} = e^{\frac{i\pi}{2}} = i = \omega 
+	\end{align*}
+	\begin{align*}
+	\frac{1}{\sqrt{4}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & \omega & \omega^2  & \omega^3 \\
+		1 & \omega^2 & \omega^4 & \omega^6 \\
+		1 & \omega^3 & \omega^6 & \omega^9 \\
+	\end{bmatrix} &=
+	\frac{1}{\sqrt{4}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & \omega & \omega^2  & \omega^3 \\
+		1 & \omega^2 & \omega^4 & \omega^2 \\
+		1 & \omega^3 & \omega^2 & \omega \\
+	\end{bmatrix} =
+	\frac{1}{\sqrt{4}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & i & -1  & -i \\
+		1 & -1 & 1 & -1 \\
+		1 & -i & -1 & i \\
+	\end{bmatrix}
+	\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item[$N = 5$] $$\omega = e^{\frac{2 i \pi}{5}}$$
+	\begin{align*}
+	\frac{1}{\sqrt{5}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 & 1 \\
+		1 & \omega & \omega^2 & \omega^3 & \omega^4 \\
+		1 & \omega^2 & \omega^4 & \omega^6 & \omega^8 \\
+		1 & \omega^3 & \omega^6 & \omega^9 & \omega^{12} \\
+		1 & \omega^4 & \omega^8 & \omega^{12} & \omega^{16}\\
+	\end{bmatrix} &=
+	\frac{1}{\sqrt{5}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 & 1 \\
+		1 & e^{\frac{2 i \pi}{5}} & e^{\frac{4 i \pi}{5}} & e^{\frac{6 i \pi}{5}} & e^{\frac{8 i \pi}{5}}\\
+		1 & e^{\frac{4 i \pi}{5}} & e^{\frac{8 i \pi}{5}} & e^{\frac{12 i \pi}{5}} 
+		& e^{\frac{16 i \pi}{5}} \\
+		1 & e^{\frac{6 i \pi}{5}} & e^{\frac{12 i \pi}{5}} & e^{\frac{18 i \pi}{5}} & e^{\frac{24 i \pi}{5}} \\
+		1 & e^{\frac{8 i \pi}{5}} & e^{\frac{16 i \pi}{5}} & e^{\frac{24 i \pi}{5}} & e^{\frac{32 i \pi}{5}}\\
+	\end{bmatrix}
+	\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{itemize}
+
+
+\section{Verify that all four matrices above are unitary.}
+A unitary matrix is defined to be a complex-valued square matrix whose inverse is equal to 
+its conjugate transpose. 
+That is, if $M$ is unitary, then $M^{-1} = \overline{M}^T$ such that $M \times M^{-1} = 1$ where 1 is the identity matrix. 
+
+It is worth noting at first that each matrix $M$ is its own transpose. So, we just need to consider the conjugate of each matrix, multiply the original with the conjugate and check that the result is the identity matrix.
+
+In our verifaction, the matrix on the left is the original matrix $M$ and the matrix on the right is $\overline{M}^T$. 
+
+\begin{itemize}
+	\item[$N = 2$:] 
+	\begin{align*}
+	\frac{1}{\sqrt{2}}
+	\begin{bmatrix}
+		1 & 1 \\
+		1 & -1 \\
+	\end{bmatrix}
+	\times
+	\frac{1}{\sqrt{2}}
+	\begin{bmatrix}
+		1 & 1 \\
+		1 & -1 \\
+	\end{bmatrix} &= 
+	\frac{1}{2}
+	\begin{bmatrix}
+		2 & 0 \\
+		0 & 2 \\
+	\end{bmatrix} = 
+	\begin{bmatrix}
+		1 & 0 \\
+		0 & 1 \\
+	\end{bmatrix}
+	\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\item[$N = 3$:] 
+	$$\frac{1}{\sqrt{3}}
+	\begin{bmatrix}
+	1 & 1 & 1 \\
+	1 & e^{\frac{2 i \pi}{3}} & e^{\frac{4 i \pi}{3}} \\
+	1 & e^{\frac{4 i \pi}{3}} & e^{\frac{2 i \pi}{3}} \\
+	\end{bmatrix} \times 
+	\frac{1}{\sqrt{3}}
+	\begin{bmatrix}
+	1 & 1 & 1 \\
+	1 & e^{\frac{-2 i \pi}{3}} & e^{\frac{-4 i \pi}{3}} \\
+	1 & e^{\frac{-4 i \pi}{3}} & e^{\frac{-2 i \pi}{3}} \\
+	\end{bmatrix}$$
+	$$\frac{1}{3} 
+	\begin{bmatrix}
+		3 & (1 + e^{\frac{-2 i \pi}{3}} + e^{\frac{-4 i \pi}{3}}) &  (1 + e^{\frac{-4 i \pi}{3}} + e^{\frac{-2 i \pi}{3}}) \\ 
+		(1 + e^{\frac{2 i \pi}{3}} + e^{\frac{4 i \pi}{3}}) &
+		(1 + e^{\frac{2 i \pi}{3}}e^{\frac{-2 i \pi}{3}} + e^{\frac{4 i \pi}{3}}e^{\frac{-4 i \pi}{3}}) & 
+		(1 + e^{\frac{2 i \pi}{3}}e^{\frac{-4 i \pi}{3}} + e^{\frac{4 i \pi}{3}}e^{\frac{-2 i \pi}{3}}) \\
+		(1 + e^{\frac{4 i \pi}{3}} + e^{\frac{2 i \pi}{3}}) & 
+		(1 + e^{\frac{4 i \pi}{3}}e^{\frac{-2 i \pi}{3}} + e^{\frac{2 i \pi}{3}}e^{\frac{-4 i \pi}{3}}) & 
+		(1 + e^{\frac{4 i \pi}{3}}e^{\frac{-4 i \pi}{3}} + e^{\frac{2 i \pi}{3}}e^{\frac{-2 i \pi}{3}}) \\
+	\end{bmatrix}$$
+	 $$\frac{1}{3} 
+	\begin{bmatrix}
+		3 & (1 + -1) &  (1 + -1) \\ 
+		(1 + -1) & (1 + 1 + 1) & (1 + -1) \\
+		(1 + -1) & (1 + -1) & (1 + 1 + 1) \\
+	\end{bmatrix}$$
+	$$
+	\begin{bmatrix}
+		1 & 0 & 0 \\ 
+		0 & 1 & 0 \\
+		0 & 0 & 1 \\
+	\end{bmatrix}$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\item[$N = 4$:] 
+	$$\frac{1}{\sqrt{4}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & i & -1  & -i \\
+		1 & -1 & 1 & -1 \\
+		1 & -i & -1 & i \\
+	\end{bmatrix} 
+	\times
+	\frac{1}{\sqrt{4}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & -i & -1  & i \\
+		1 & -1 & 1 & -1 \\
+		1 & i & -1 & -i \\
+	\end{bmatrix} 
+	$$
+	$$\frac{1}{4}(
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & i & -1  & -i \\
+		1 & -1 & 1 & -1 \\
+		1 & -i & -1 & i \\
+	\end{bmatrix} 
+	\times
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 \\
+		1 & -i & -1  & i \\
+		1 & -1 & 1 & -1 \\
+		1 & i & -1 & -i \\
+	\end{bmatrix})
+	$$
+	$$
+	\frac{1}{4}(
+	\begin{bmatrix}
+	(1 + 1 + 1 + 1) & (1 + i + -1 + -i) & (1 + -1 + 1 + -1) & (1 + i + -1 + -i) \\
+	(1 + i + -1 + -i) & (1 + i \times -i + 1 + -i \times i) & (1 + -i + -1 + i) & (1 + i \times i + 1 + -i \times -i) \\
+	(1 + -1 + 1 + -1) & (1 + i + -1 + -i) & (1 + 1 + 1 + 1) & (1 + -i + -1 + i) \\
+	(1 + -i + -1 + i) & (1 + -i \times -i + 1 + i \times i) & (1 + i + -1 + -i) & (1 + i \times -i + 1 + i \times -i) \\
+	\end{bmatrix}
+	)
+	$$
+	$$
+	\frac{1}{4}(
+	\begin{bmatrix}
+	4 & 0 & 0 & 0 \\
+	0 & 4 & 0 & 0 \\
+	0 & 0 & 4 & 0 \\
+	0 & 0 & 0 & 4 \\
+	\end{bmatrix}
+	)
+	$$
+	$$
+	\begin{bmatrix}
+	1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1 \\
+	\end{bmatrix}
+	$$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\item[$N = 5$.]  
+	Let $\omega = e^{\frac{i\pi}{5}}$
+	$$
+	\frac{1}{\sqrt{5}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 & 1 \\
+		1 & \omega^2 & \omega^4    & \omega^6     & \omega^8     \\
+		1 & \omega^4 & \omega^8    & \omega^{12}  & \omega^{16}  \\
+		1 & \omega^6 & \omega^{12} & \omega^{18}  & \omega^{24}  \\
+		1 & \omega^8 & \omega^{16} & \omega^{24}  & \omega^{32}  \\
+	\end{bmatrix}
+	\times
+	\frac{1}{\sqrt{5}}
+	\begin{bmatrix}
+		1 & 1 & 1 & 1 & 1 \\
+		1 & \omega^{-2} & \omega^{-4}  & \omega^{-6}   & \omega^{-8}   \\
+		1 & \omega^{-4} & \omega^{-8}  & \omega^{-12}  & \omega^{-16}  \\
+		1 & \omega^{-6} & \omega^{-12} & \omega^{-18}  & \omega^{-24}  \\
+		1 & \omega^{-8} & \omega^{-16} & \omega^{-24}  & \omega^{-32}  \\
+	\end{bmatrix}
+	$$
+	% We claim the following: 
+	% $1 + e^{\frac{-2 i \pi}{5}} + e^{\frac{-4 i \pi}{5}} + e^{\frac{-6 i \pi}{5}} + e^{\frac{-8 i \pi}{5}} = 0$
+	The top row will be the following 5 expressions:
+	\begin{align*}
+	(1 + 1 + 1 + 1 + 1) \\
+	(1 + \omega^{-2} + \omega^{-4} + \omega^{-6} + \omega^{-8}) \\
+	(1 + \omega^{-4} + \omega^{-8} + \omega^{-12} + \omega^{-16}) \\
+	(1 + \omega^{-6} + \omega^{-12} + \omega^{-18} + \omega^{-24}) \\
+	(1 + \omega^{-8} + \omega^{-16} + \omega^{-24} + \omega^{-32}) 
+	\end{align*}
+	Take $k$ such that $k + 8$ is a multiple of 5. We make the following observation (using the fact that we are in an integral domain):
+	\begin{align*}
+	\omega^k(1 + \omega^{k} + \omega^{k+2} + \omega^{k+4} + \omega^{k+6}) 
+		&= (\omega^k + \omega^{k+2} + \omega^{k+4} + \omega^{k+6} + \omega^{k+8}) \\
+		&= (\omega^k + \omega^{k+2} + \omega^{k+4} + \omega^{k+6} + 1) \\
+		&\Rightarrow (1 + \omega^{k} + \omega^{k+2} + \omega^{k+4} + \omega^{k+6}) = 0
+	\end{align*}
+	So then our top row is really just $5, 0, 0, 0, 0$.
+	The same is true for the left column, because the only difference is the negation of the power, which doesn't actually affect our result.
+	Note that our diagonal values will be as follows
+	\begin{align*}
+	1 + \omega^k\omega^{-k} + \omega^{k+2}\omega^{-(k+2)} + \omega^{k+4}\omega^{-(k+4)} + \omega^{k+6}\omega^{-(k+6)} 
+		&= 1 + \omega^0 + \omega^0 + \omega^0 + \omega^0 \\
+		&= 1 + 1 + 1 + 1 + 1 \\
+		&= 5
+	\end{align*}
+	The rest of the matrix follows the same patterns as we have outlined above, so all non-diagonal values are 0. 
+	$$
+	\frac{1}{5}
+	\begin{bmatrix}
+		5 & 0 & 0 & 0 & 0 \\
+		0 & 5 & 0 & 0 & 0 \\
+		0 & 0 & 5 & 0 & 0 \\
+		0 & 0 & 0 & 5 & 0 \\
+		0 & 0 & 0 & 0 & 5 \\
+	\end{bmatrix} 
+	= 
+	\begin{bmatrix}
+		1 & 0 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 0 & 1 \\
+	\end{bmatrix}
+	$$
+\end{itemize}
+
+
+\section{Implement the $O(N^2)$ DFT algorithm in Python}
+Submitted as $\texttt{dft.py}$
+
+\section{Quantum Circuit implementation of DFT}
+% Describe it and argue that the implementation has compexlity $O(\log^2N)$
+The Quantum Fourier Transform can be thought of as a recursive algorithm. 
+A single qubit has 2 states, i.e. $N = 2 = 2^1$. The circuit in this case is the 
+Hadamard gate. For $n$ bits, we have $N = 2^n$ states. We construct the matrix by
+recurring on half of the bits twice, at the same time. We also need to 
+add rotation gates between the values produced by recursion, so we have a series
+of rotations controlled by the previous $n-1$ qubits.
+In matrix form this looks like (thanks to the QUIC Seminar paper given as resource):
+$$\textbf{QFT}_N = \begin{bmatrix}\textbf{QFT}_{\frac{N}{2}} & \textbf{R}_{\frac{N}{2}} & \textbf{QFT}_{\frac{N}{2}} \\
+	\textbf{QFT}_{\frac{N}{2}} & \textbf{R}_{\frac{N}{2}} & 
+	\textbf{QFT}_{\frac{N}{2}} \end{bmatrix}$$
+The two recursions on half as many arguments leads us towards the $O(\log^2 N)$ complexity. Another way to see this is that each wire gets a Hadamard gates, giving us $n$ gates.
+Then the wires, starting with the most significant, get $n-1$ controlled rotations, 
+then $n-2$ controlled rotations, continuing in this manner until the least significant 
+which gets none (remember it only gets a Hadamard!).
+Then our amount of gates is $n + (n-1) + \dots + 1 = \frac{n(n+1)}{2}$, which shows 
+our $\log^2 N$ complexity.
+\newpage
+\section{Useful Definitions}
+$$\ket{\textbf{i}} := \frac{1}{\sqrt{2}}(\ket{0} + i \ket{1})$$
+$$\ket{-\textbf{i}} := \frac{1}{\sqrt{2}}(\ket{0} - i \ket{1})$$
+Definition: Let $H$ be a two-dimensional complex Hilbert space. Let $h_1, h_2$ be unit vectors in 
+$H$. 
+
+$h_1$ and $h_2$ are equivalent as quantum states if there exists a modulus one complex number $c$ 
+such that $h_1  = ch_2$.
+
+
+\section{Rieffel and Polak 2.2}
+Which pairs of expressions for quantum states represent the same state?
+
+\begin{enumerate}
+\item[$\textbf{a.}$] $\ket{0}$ and $-\ket{0}$ \\
+	Take $c = -1$. Then $c\ket{0} = -\ket{0}$
+\item[$\textbf{b.}$] $\ket{1}$ and $\textbf{i}\ket{1}$ \\
+	Take $c = \textbf{i}$. Then $c\ket{1} = \textbf{i}\ket{1}$
+\item[$\textbf{c.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{0} + \ket{1})$ and 
+	$\frac{1}{\sqrt{2}}(-\ket{0} + \textbf{i}\ket{1})$ \\
+	Note that 
+	$$\frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ 
+			  		\frac{1}{\sqrt{2}}\end{bmatrix}$$
+	$$\frac{1}{\sqrt{2}}(-\ket{0} + \textbf{i}\ket{1}) = 
+		\begin{bmatrix}-\frac{1}{\sqrt{2}} \\ 
+				 \frac{\textbf{i}}{\sqrt{2}}\end{bmatrix}$$
+
+	Suppose towards a contradiction that there is such a number $c = a + ib$. \\
+	So we must have $$c \cdot \begin{bmatrix}\frac{1}{\sqrt{2}} \\ 
+			  		\frac{1}{\sqrt{2}}\end{bmatrix} 
+					= \begin{bmatrix}-\frac{1}{\sqrt{2}} \\ 
+				 \frac{\textbf{i}}{\sqrt{2}}\end{bmatrix}$$
+		Then $$(a + ib) \times (\frac{1}{\sqrt{2}} + i0) = (-\frac{1}{\sqrt{2}} + i0)$$ 
+		and \\ $$(a + ib) \times (\frac{1}{\sqrt{2}} + i0) = (\frac{i}{\sqrt{2}} + i0)$$ 
+		But this is not possible, so there is a contradiction. 
+		Hence there is no such $c$ and these two expressions represent different quantum states.
+	
+\item[$\textbf{d.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{0} + \ket{1})$ and $\frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$\\
+	$$\frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) = \begin{bmatrix}
+			\frac{1}{\sqrt{2}} \\ 
+			\frac{1}{\sqrt{2}}\end{bmatrix}$$
+	$$\frac{1}{\sqrt{2}}(\ket{0} - \ket{1}) = \begin{bmatrix}
+		\frac{1}{\sqrt{2}} \\ 
+		-\frac{1}{\sqrt{2}}\end{bmatrix}$$  
+	Suppose there is $c = a + ib$ such that 
+	$$c \cdot \begin{bmatrix}
+			\frac{1}{\sqrt{2}} \\ 
+			\frac{1}{\sqrt{2}}\end{bmatrix} 
+		= \begin{bmatrix}
+		\frac{1}{\sqrt{2}} \\ 
+		-\frac{1}{\sqrt{2}}\end{bmatrix}$$
+	Then $c \times \frac{1}{\sqrt{2}} = \frac{1}{\sqrt{2}}$
+	and  $c \times \frac{1}{\sqrt{2}} = -\frac{1}{\sqrt{2}}$.
+	But this is not possible, so there is a contradiction.
+	Hence there is no such $c$ and these two expressions represent different 
+		quantum states.
+ 
+
+
+
+\item[$\textbf{e.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$ and $\frac{1}{\sqrt{2}}(\ket{1} - \ket{0})$
+	\begin{align*}
+		\frac{1}{\sqrt{2}}(\ket{0} - \ket{1}) &= 
+		\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -1\end{bmatrix}\\
+		\frac{1}{\sqrt{2}}(\ket{1} - \ket{0}) &= 
+		\frac{1}{\sqrt{2}}\begin{bmatrix}-1 \\ 1\end{bmatrix}
+	\end{align*}
+	Here we can take $c = -1$. 
+	Then $c(\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -1\end{bmatrix}) =  \frac{1}{\sqrt{2}}\begin{bmatrix}-1 \\ 1\end{bmatrix}$. \\
+	Therefore these two expressions represent different quantum states.
+
+\item[$\textbf{f.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{0} + \textbf{i}\ket{1})$ and 
+	$\frac{1}{\sqrt{2}}(\textbf{i}\ket{1} - \ket{0})$
+	\begin{align*}
+		\frac{1}{\sqrt{2}}(\ket{0} + \textbf{i}\ket{1}) &= 
+		\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ \textbf{i}\end{bmatrix} \\
+		\frac{1}{\sqrt{2}}(\textbf{i}\ket{1} - \ket{0}) &= 
+		\frac{1}{\sqrt{2}}\begin{bmatrix}-1 \\ \textbf{i}\end{bmatrix}
+	\end{align*}
+	Suppose there is $c = a + ib$ such that 
+	$$c \cdot \begin{bmatrix}
+			\frac{1}{\sqrt{2}} \\ 
+			\frac{\textbf{i}}{\sqrt{2}}\end{bmatrix} 
+		= \begin{bmatrix}
+		-\frac{1}{\sqrt{2}} \\ 
+		\frac{\textbf{i}}{\sqrt{2}}\end{bmatrix}$$
+	Factoring out the $\frac{1}{\sqrt{2}}$, we must have $c$ such that $c \times 1 = -1$ and $c \times i = i$.\\
+	So $$(a + ib)(1 + i0) = -1 \Rightarrow a + ib = -1 \Rightarrow a = -1,\ b = 0$$
+	$$(a + ib)(0 + i) = i \Rightarrow -b + ia = i \Rightarrow a = 1, b = 0$$
+	But this is a contradiction because $a$ cannot be both $1$ and $-1$. 
+	Hence there is no such $c$ and these two expressions represent different 
+		quantum states.
+
+\newpage
+\item[$\textbf{g.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{+} + \ket{-})$ and $\ket{0}$
+	\begin{align*}
+	\frac{1}{\sqrt{2}}(\ket{+} + \ket{-}) 
+		&= \frac{1}{\sqrt{2}}(\frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) 
+		+ \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})) \\
+		&= \frac{1}{2}(\ket{0} + \ket{1} + \ket{0} - \ket{1}) \\
+		&= \frac{1}{2}(\ket{0} + \ket{0}) \\
+		&= \frac{1}{2}\begin{bmatrix}
+			2\\0
+			\end{bmatrix} \\
+		&= \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+		&= \ket{0}
+	\end{align*}
+	So the two expressiones represent the same quantum states!
+
+\item[$\textbf{h.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{\textbf{i}} - \ket{-\textbf{i}})$ and $\ket{1}$
+	\begin{align*}
+	\frac{1}{\sqrt{2}}(\ket{\bfi} - \ket{-\textbf{i}})
+		&= \srtt(\srtt(\ket{0} + \bfi\ket{1}) - \srtt(\ket{0} - \bfi\ket{1})) \\
+		&= \frac{1}{2}(\ket{0} + \bfi\ket{1} - \ket{0} + \bfi\ket{1}) \\
+		&= \frac{1}{2}(\bfi\ket{1}  + \bfi\ket{1}) \\
+		&= \bfi\ket{1} 
+	\end{align*}
+	So we can take $c = i$, which is modulus one, and thus the two expressions 
+	represent the same quantum states. 
+\newpage
+\item[$\textbf{i.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{\textbf{i}} + \ket{-\textbf{i}})$ and 
+		$\frac{1}{\sqrt{2}}(\ket{-} + \ket{+})$ \\
+	Let's unpack these expressions.
+	\begin{align*}
+	\srtt(\ket{\bfi} + \ket{-\bfi}) 
+		&= \srtt(\srtt(\ket{0} + i \ket{1}) + \srtt(\ket{0} - i \ket{1})) \\
+		&= \frac{1}{2}(\ket{0} + i \ket{1} + \ket{0} - i \ket{1}) \\
+		&= \frac{1}{2}(\ket{0} + \ket{0}) \\
+		&= \ket{0} 
+	\end{align*}
+	\begin{align*}
+	\srtt(\ket{-} + \ket{+})
+		&= \srtt(\srtt(\ket{0} - \ket{1}) + \srtt(\ket{0} + \ket{1})) \\
+		&= \frac{1}{2}(\ket{0} - \ket{1} + \ket{0} + \ket{1}) \\
+		&= \frac{1}{2}(\ket{0} + \ket{0}) \\
+		&= \ket{0}
+	\end{align*}
+	Woah! These expressions represent the same quantum states!
+
+% \ket{+} := \srtt(\ket{0} + \ket{1})
+% \ket{-} := \srtt(\ket{0} - \ket{1})
+%$$\ket{\textbf{i}} := \srtt(\ket{0} + i \ket{1})$$
+%$$\ket{-\textbf{i}} := \srtt(\ket{0} - i \ket{1})$$
+
+\newpage
+\item[$\textbf{j.}$] 
+	$\frac{1}{\sqrt{2}}(\ket{0} + \ep\ket{1})$ and
+		$\frac{1}{\sqrt{2}}(\em\ket{0} + \ket{1})$ \\
+	Let's take $c = e^{\frac{-\textbf{i}\pi}{4}}$.
+	It suffices to show that $c(\ket{0} + \ep\ket{1}) = (\em\ket{0} + \ket{1})$.\\
+	First see that $(\ket{0} + \ep\ket{1}) = \begin{bmatrix}1 \\ \ep\end{bmatrix}$.\\
+		Next, $(\em\ket{0} + \ket{1}) = \begin{bmatrix}\em \\ 1\end{bmatrix}$
+	\\ Now,
+	\begin{align*}
+		\em \cdot \begin{bmatrix}1 \\ \ep\end{bmatrix} 
+			&= \begin{bmatrix}\em \\ \em\ep  \end{bmatrix} \\
+			&= \begin{bmatrix}\em \\ e^0  \end{bmatrix}\\
+			&= \begin{bmatrix}\em \\ 1  \end{bmatrix}
+	\end{align*}
+	Therefore our choice of $c$ shows that these two expressions represent the 
+	same quantum state.
+\end{enumerate}
+
+\newpage
+\section{Rieffel and Polak 2.3}
+Which states are superpositions with respect to the standard basis, and which
+are not? For each state that is a superposition, give a basis with respect to
+which it is not a superposition.
+
+\begin{enumerate}
+\item[$\textbf{a.}$] $\ket{+}$ \\
+	$$\ket{+} = \srtt(\ket{0} + \ket{1}) = \srtt\ket{0} + \srtt\ket{1}$$
+	This is a proper linear combination of $\ket{0}$ and $\ket{1}$, so it is a superposition wtih respect to the standard basis.
+	This is not a superposition with respect to the Hadamard basis, because $\ket{+}$ is one of the basis vectors of the Hadamard basis. 
+
+\item[$\textbf{b.}$] $\srtt(\ket{+} + \ket{-})$ \\
+	We know from part $g$ in problem 2.2 that $\srtt(\ket{+} + \ket{-}) = \ket{0}$.
+		And this is not a proper linear combination of $\ket{0}$ and $\ket{1}$,
+		so this state is not a superposition with respect to the standard basis.
+
+\item[$\textbf{c.}$] $\srtt(\ket{+} - \ket{-})$
+	\begin{align*}
+		\srtt(\ket{+} - \ket{-}) 
+		&= \srtt(\srtt(\ket{0} + \ket{1}) - \srtt(\ket{0} - \ket{1})) \\
+		&= \frac{1}{2}(\ket{0} + \ket{1} - \ket{0} + \ket{1}) \\
+		&= \frac{1}{2}(\ket{1} + \ket{1}) \\
+		&= \ket{1}
+	\end{align*}
+	And this is not a proper linear combination of $\ket{0}$ and $\ket{1}$,
+	so this state is not a superposition with respect to the standard basis.
+
+\newpage
+\item[$\textbf{d.}$] $\frac{\sqrt{3}}{2}\ket{+} - \frac{1}{2}\ket{-}$ \\
+	We have a conversion matrix: 
+		$$M^{\mathcal{C}}_{\mathcal{H}} = \srtt\begin{bmatrix}1&1 \\ 1&-1\end{bmatrix}$$
+	The given expression is the following vector in the Hadamard basis: 
+		$$\frac{1}{2}\begin{bmatrix}\sqrt{3}\\ - 1\end{bmatrix}$$
+	Now we can multiply our conversion matrix with the given vector:
+	\begin{align*}
+	\srtt\begin{bmatrix}1&1 \\ 1&-1\end{bmatrix}\frac{1}{2}\begin{bmatrix}\sqrt{3}\\ - 1\end{bmatrix} 
+		&= \frac{1}{2\sqrt{2}} \begin{bmatrix}1&1 \\ 1&-1\end{bmatrix} \begin{bmatrix}\sqrt{3}\\ - 1\end{bmatrix} \\
+			&= \frac{1}{2\sqrt{2}} \begin{bmatrix}\sqrt{3} - 1 \\ \sqrt{3} + 1\end{bmatrix}
+	\end{align*}
+	Given that this vector has no 0 entry, we know it is a superposition in the standard basis. \\
+	Now we must find a basis in which it is not a superposition.
+	Let's make a basis for which this vector is not a superposition!  \\
+	Consider the following basis:
+		$$\mathcal{B} = \left\{\begin{bmatrix}\frac{\sqrt{3}}{2} \\ -\frac{1}{2}\end{bmatrix}, \begin{bmatrix}\frac{1}{2} \\ \frac{\sqrt{3}}{2}\end{bmatrix} \right\}$$
+	If this were a basis, then the given vector is not a superposition with respect to this basis. So it remains to verify that this is indeed a basis.
+	For this, it suffices to show the two vectors are orthonormal. First, it is trivial to see that both vectors have norm 1. 
+	Next we must see that the inner-product is equal to 0. 
+	\begin{align*}
+		\left\langle\begin{bmatrix} \frac{\sqrt{3}}{2}\\-\frac{1}{2}\end{bmatrix},\begin{bmatrix}\frac{1}{2}\\\frac{\sqrt{3}}{2}\end{bmatrix}\right\rangle 
+			&= \begin{bmatrix} \frac{\sqrt{3}}{2} & -\frac{1}{2}\end{bmatrix} \begin{bmatrix}\frac{1}{2}\\\frac{\sqrt{3}}{2}\end{bmatrix} \\
+				&= (\frac{\sqrt{3}}{2}\frac{1}{2}) + (-\frac{1}{2}\frac{\sqrt{3}}{2}) \\
+				&= \frac{\sqrt{3}}{2} - \frac{\sqrt{3}}{2} \\
+				&= 0
+	\end{align*}
+	Since the vectors are orthonormal, we know they are linearly independent and thus comprise a basis. 
+	Therefore the original expression is not a superposition with respect to the basis $\mathcal{B}$.
+	
+	
+	
+% \ket{+} := \srtt(\ket{0} + \ket{1})
+% \ket{-} := \srtt(\ket{0} - \ket{1})
+
+\item[$\textbf{e.}$] $\srtt(\ket{\bfi} - \ket{-\bfi})$ \\
+	In $2.2.h$, we learned $\srtt(\ket{\bfi} - \ket{-\bfi}) = \bfi\ket{1}$.
+	And this is not a proper linear combination of $\ket{0}$ and $\ket{1}$,
+		so this state is not a superposition with respect to the standard basis.
+
+\item[$\textbf{f.}$] $\srtt(\ket{0} - \ket{1})$ \\
+	This is obviously a superposition with respect to the standard basis.
+	This is not a superposition with respect to the Hadamard basis, because 
+		$$\srtt(\ket{0} - \ket{1}) = \ket{-}$$
+\end{enumerate}
+
+\newpage
+\section{Rieffel and Polak 2.4}
+Which of the states in 2.3 are superpositions with respect to the Hadamard basis,
+and which are not?
+
+\begin{enumerate}
+\item[$\textbf{a.}$] $\ket{+}$ \\
+	This is not a superposition with respect to the Hadamard basis. 
+\item[$\textbf{b.}$] $\srtt(\ket{+} + \ket{-})$ \\
+	This is a superposition with respect to the Hadamard basis.
+\item[$\textbf{c.}$] $\srtt(\ket{+} - \ket{-})$ \\
+	This is a superposition with respect to the Hadamard basis.
+\item[$\textbf{d.}$] $\frac{\sqrt{3}}{2}\ket{+} - \frac{1}{2}\ket{-}$ \\
+	This is a superposition with respect to the Hadamard basis.
+% \ket{+} := \srtt(\ket{0} + \ket{1})
+% \ket{-} := \srtt(\ket{0} - \ket{1})
+\item[$\textbf{e.}$] $\srtt(\ket{\bfi} - \ket{-\bfi})$ \\
+	In the basis $S = \{\ket{\bfi}, \ket{-\bfi}\}$, this is the vector $\srtt\begin{bmatrix}1\\-1\end{bmatrix}$. \\
+	We have the following change of base matrix 
+		$$M^{\mathcal{H}}_{\mathcal{S}} = \srtt\begin{bmatrix}1 + \bfi & 1 - \bfi \\ 1 - \bfi & 1 + \bfi\end{bmatrix}$$
+	Now we can convert via matrix multiplication:
+	\begin{align*}
+	M^{\mathcal{H}}_{\mathcal{S}}\srtt\begin{bmatrix}1\\-1\end{bmatrix} 
+		&= \srtt\begin{bmatrix}1 + \bfi & 1 - \bfi \\ 1 - \bfi & 1 + \bfi\end{bmatrix}\srtt\begin{bmatrix}1\\-1\end{bmatrix} \\
+		&= \frac{1}{2} \begin{bmatrix}1 + \bfi & 1 - \bfi \\ 1 - \bfi & 1 + \bfi\end{bmatrix}\begin{bmatrix}1\\-1\end{bmatrix} \\
+		&= \frac{1}{2}\begin{bmatrix}2\bfi \\ -2\bfi  \end{bmatrix}  \\
+		&= \begin{bmatrix}\bfi \\ -\bfi  \end{bmatrix} 
+	\end{align*}
+	Given that the resulting vector has no 0 entry, we know this is a superposition in the Hadamard basis.
+
+\item[$\textbf{f.}$] $\srtt(\ket{0} - \ket{1})$ \\
+	We know this is equal to $\ket{-}$, so it is not a superposition with respect 
+		to the Hadamard basis.
+\end{enumerate}
+
+
+
+
+\end{document}

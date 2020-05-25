@@ -1,0 +1,10 @@
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg in[2];  // inputs 
+qreg a[2];   // ancilla 
+creg out[2]; //
+
+barrier in;
+
+CCX(in[0], in[1], out[0]);
